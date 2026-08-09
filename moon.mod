@@ -1,4 +1,4 @@
-name = "REPLACE_ME/moonbit-canbus"
+name = "myc1234567/moonbit-canbus"
 
 source = "src"
 
@@ -8,7 +8,7 @@ readme = "README.md"
 
 license = "Apache-2.0"
 
-repository = "https://github.com/REPLACE_ME/moonbit-canbus"
+repository = "https://github.com/myc1234567/moonbit-canbus"
 
 keywords = [ "can", "can-fd", "dbc", "isotp", "j1939", "vehicle-network" ]
 
