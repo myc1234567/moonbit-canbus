@@ -1,5 +1,5 @@
 // Generated using `moon info`, DON'T EDIT IT
-package "REPLACE_ME/moonbit-canbus"
+package "myc1234567/moonbit-canbus"
 
 import {
   "moonbitlang/core/debug",
