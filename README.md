@@ -17,6 +17,8 @@ MoonBit 生态已经有通用数据结构、序列化和异步基础设施，但
 - 精确过滤器、掩码过滤器和有界虚拟总线队列。
 - DBC 中常用的 `BO_` / `SG_` 消息与信号描述读取。
 - 小型信号编解码 API，以及 UDS 会话控制、ECU Reset、ReadDataByIdentifier、TesterPresent 请求。
+- ISO-TP 单帧/首帧/连续帧/流控帧分段与重组。
+- J1939 29-bit 标识符和 PGN 解析，以及带时间戳的确定性总线记录回放。
 
 ## 快速开始
 
@@ -41,7 +43,7 @@ let received = bus.receive()
 
 ## 目录结构
 
-`src/frame.mbt` 定义帧与 DLC；`src/crc.mbt` 和 `src/wire.mbt` 负责线级算法；`src/filter.mbt` 提供过滤器和虚拟总线；`src/signal.mbt`、`src/dbc.mbt` 负责 DBC 子集和信号；`src/diagnostic.mbt` 提供 UDS 请求骨架。`*_test.mbt` 覆盖这些核心路径。
+`src/frame.mbt` 定义帧与 DLC；`src/crc.mbt` 和 `src/wire.mbt` 负责线级算法；`src/filter.mbt` 提供过滤器和虚拟总线；`src/signal.mbt`、`src/dbc.mbt` 负责 DBC 子集和信号；`src/transport.mbt`、`src/j1939.mbt` 和 `src/trace.mbt` 提供传输层、J1939 和记录回放；`src/diagnostic.mbt` 提供 UDS 请求骨架。`*_test.mbt` 覆盖这些核心路径。
 
 ## 设计边界与路线
 
