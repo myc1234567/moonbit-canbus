@@ -20,6 +20,8 @@ pub fn crc21(Array[Bool]) -> UInt
 
 pub fn data_frame(UInt, Array[Byte], extended? : Bool) -> Frame raise FrameError
 
+pub fn decode_j1939(UInt) -> J1939Id
+
 pub fn decode_response(DiagnosticRequest, Array[Byte]) -> DiagnosticResponse
 
 pub fn destuff(Array[Bool]) -> Array[Bool] raise WireError
@@ -27,6 +29,8 @@ pub fn destuff(Array[Bool]) -> Array[Bool] raise WireError
 pub fn ecu_reset(Byte) -> DiagnosticRequest
 
 pub fn encode_bits(Frame) -> Array[Bool]
+
+pub fn encode_j1939(J1939Id) -> UInt
 
 pub fn error_frame(Byte) -> Frame
 
@@ -36,6 +40,14 @@ pub fn fd_frame(UInt, Array[Byte], extended? : Bool, bitrate_switch? : Bool, err
 
 pub fn fd_length_from_dlc(Byte) -> Int
 
+pub fn isotp_decode(Array[Byte]) -> IsoTpPacket?
+
+pub fn isotp_reassemble(IsoTpPacket, Array[IsoTpPacket]) -> Array[Byte]?
+
+pub fn isotp_segment(Array[Byte]) -> Array[Array[Byte]]
+
+pub fn j1939_id(Byte, Bool, Byte, Byte, Byte) -> J1939Id
+
 pub fn mask_filter(UInt, UInt, extended? : Bool?) -> Filter
 
 pub fn message(UInt, String, Int) -> Message
@@ -44,7 +56,11 @@ pub fn new_bus(Int) -> VirtualBus
 
 pub fn new_filter_bank() -> FilterBank
 
+pub fn new_trace() -> Trace
+
 pub fn parse_dbc(String) -> Array[Message] raise DbcError
+
+pub fn pgn(UInt, String, Int) -> Pgn
 
 pub fn read_data(UInt) -> DiagnosticRequest
 
@@ -124,6 +140,23 @@ pub enum FrameKind {
   Error
 }
 
+pub enum IsoTpPacket {
+  Single(payload~ : Array[Byte])
+  First(total_length~ : Int, payload~ : Array[Byte])
+  Consecutive(sequence~ : Byte, payload~ : Array[Byte])
+  FlowControl(status~ : Byte, block_size~ : Byte, separation_time~ : Byte)
+}
+
+pub struct J1939Id {
+  priority : Byte
+  data_page : Bool
+  pdu_format : Byte
+  pdu_specific : Byte
+  source_address : Byte
+}
+pub fn J1939Id::pgn(Self) -> UInt
+pub fn J1939Id::source(Self) -> Byte
+
 pub struct Message {
   id : UInt
   name : String
@@ -135,6 +168,14 @@ pub fn Message::dlc(Self) -> Int
 pub fn Message::find(Self, String) -> Signal?
 pub fn Message::id(Self) -> UInt
 pub fn Message::name(Self) -> String
+
+pub struct Pgn {
+  number : UInt
+  name : String
+  data_length : Int
+}
+pub fn Pgn::name(Self) -> String
+pub fn Pgn::number(Self) -> UInt
 
 pub enum Protocol {
   Can20
@@ -159,6 +200,21 @@ pub fn Signal::encode(Self, Array[Byte], Double) -> Array[Byte]
 pub fn Signal::encode_raw(Self, Array[Byte], UInt) -> Array[Byte]
 pub fn Signal::name(Self) -> String
 pub fn Signal::start_bit(Self) -> Int
+
+pub struct Trace {
+  entries : Array[TraceEntry]
+}
+pub fn Trace::entries(Self) -> Array[TraceEntry]
+pub fn Trace::length(Self) -> Int
+pub fn Trace::record(Self, UInt64, Frame) -> Unit
+pub fn Trace::replay(Self, VirtualBus) -> Int
+
+pub struct TraceEntry {
+  timestamp_us : UInt64
+  frame : Frame
+}
+pub fn TraceEntry::frame(Self) -> Frame
+pub fn TraceEntry::timestamp(Self) -> UInt64
 
 pub enum UdsService {
   DiagnosticSessionControl
