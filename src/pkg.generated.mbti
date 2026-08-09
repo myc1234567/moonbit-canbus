@@ -1,0 +1,186 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "REPLACE_ME/moonbit-canbus"
+
+import {
+  "moonbitlang/core/debug",
+}
+
+// Values
+pub fn append_bits(Array[Bool], UInt, Int) -> Unit
+
+pub fn arbitration_winner(Array[Frame]) -> Frame?
+
+pub fn bits_of(UInt, Int) -> Array[Bool]
+
+pub fn crc15(Array[Bool]) -> UInt
+
+pub fn crc17(Array[Bool]) -> UInt
+
+pub fn crc21(Array[Bool]) -> UInt
+
+pub fn data_frame(UInt, Array[Byte], extended? : Bool) -> Frame raise FrameError
+
+pub fn decode_response(DiagnosticRequest, Array[Byte]) -> DiagnosticResponse
+
+pub fn destuff(Array[Bool]) -> Array[Bool] raise WireError
+
+pub fn ecu_reset(Byte) -> DiagnosticRequest
+
+pub fn encode_bits(Frame) -> Array[Bool]
+
+pub fn error_frame(Byte) -> Frame
+
+pub fn exact_filter(UInt, extended? : Bool) -> Filter
+
+pub fn fd_frame(UInt, Array[Byte], extended? : Bool, bitrate_switch? : Bool, error_state_indicator? : Bool) -> Frame raise FrameError
+
+pub fn fd_length_from_dlc(Byte) -> Int
+
+pub fn mask_filter(UInt, UInt, extended? : Bool?) -> Filter
+
+pub fn message(UInt, String, Int) -> Message
+
+pub fn new_bus(Int) -> VirtualBus
+
+pub fn new_filter_bank() -> FilterBank
+
+pub fn parse_dbc(String) -> Array[Message] raise DbcError
+
+pub fn read_data(UInt) -> DiagnosticRequest
+
+pub fn remote_frame(UInt, extended? : Bool) -> Frame raise FrameError
+
+pub fn session_control(Byte) -> DiagnosticRequest
+
+pub fn signal(String, Int, Int, little_endian? : Bool, signed? : Bool, factor? : Double, offset? : Double, minimum? : Double, maximum? : Double, unit? : String) -> Signal
+
+pub fn stuff(Array[Bool]) -> Array[Bool]
+
+pub fn tester_present(suppress_response? : Bool) -> DiagnosticRequest
+
+// Errors
+pub suberror DbcError {
+  InvalidMessageLine(String)
+  InvalidSignalLine(String)
+  InvalidNumber(String)
+}
+
+pub suberror FrameError {
+  InvalidIdentifier
+  InvalidLength
+} derive(@debug.Debug)
+
+pub suberror WireError {
+  InvalidStuffedBit
+}
+
+// Types and methods
+pub struct DiagnosticRequest {
+  service : UdsService
+  payload : Array[Byte]
+}
+pub fn DiagnosticRequest::payload(Self) -> Array[Byte]
+pub fn DiagnosticRequest::service(Self) -> UdsService
+
+pub enum DiagnosticResponse {
+  Positive(Array[Byte])
+  Negative(code~ : Byte)
+  Malformed
+}
+
+pub struct Filter {
+  id : UInt
+  mask : UInt
+  extended : Bool?
+}
+pub fn Filter::matches(Self, Frame) -> Bool
+
+pub struct FilterBank {
+  filters : Array[Filter]
+}
+pub fn FilterBank::accepts(Self, Frame) -> Bool
+pub fn FilterBank::add(Self, Filter) -> Unit
+
+pub struct Frame {
+  id : UInt
+  extended : Bool
+  kind : FrameKind
+  protocol : Protocol
+  bitrate_switch : Bool
+  error_state_indicator : Bool
+  data : Array[Byte]
+}
+pub fn Frame::bitrate_switch(Self) -> Bool
+pub fn Frame::data(Self) -> Array[Byte]
+pub fn Frame::dlc(Self) -> Byte
+pub fn Frame::id(Self) -> UInt
+pub fn Frame::is_extended(Self) -> Bool
+pub fn Frame::kind(Self) -> FrameKind
+pub fn Frame::protocol(Self) -> Protocol
+
+pub enum FrameKind {
+  Data
+  Remote
+  Error
+}
+
+pub struct Message {
+  id : UInt
+  name : String
+  dlc : Int
+  signals : Array[Signal]
+}
+pub fn Message::add_signal(Self, Signal) -> Unit
+pub fn Message::dlc(Self) -> Int
+pub fn Message::find(Self, String) -> Signal?
+pub fn Message::id(Self) -> UInt
+pub fn Message::name(Self) -> String
+
+pub enum Protocol {
+  Can20
+  CanFd
+}
+
+pub struct Signal {
+  name : String
+  start_bit : Int
+  size : Int
+  little_endian : Bool
+  signed : Bool
+  factor : Double
+  offset : Double
+  minimum : Double
+  maximum : Double
+  unit : String
+}
+pub fn Signal::decode(Self, Array[Byte]) -> Double
+pub fn Signal::decode_raw(Self, Array[Byte]) -> UInt
+pub fn Signal::encode(Self, Array[Byte], Double) -> Array[Byte]
+pub fn Signal::encode_raw(Self, Array[Byte], UInt) -> Array[Byte]
+pub fn Signal::name(Self) -> String
+pub fn Signal::start_bit(Self) -> Int
+
+pub enum UdsService {
+  DiagnosticSessionControl
+  EcuReset
+  ReadDataByIdentifier
+  TesterPresent
+}
+
+pub struct VirtualBus {
+  capacity : Int
+  queue : Array[Frame]
+  mut filters : FilterBank
+  mut dropped : Int
+}
+pub fn VirtualBus::dropped(Self) -> Int
+pub fn VirtualBus::filters(Self) -> FilterBank
+pub fn VirtualBus::pending(Self) -> Int
+pub fn VirtualBus::publish(Self, Frame) -> Bool
+pub fn VirtualBus::receive(Self) -> Frame?
+pub fn VirtualBus::set_filters(Self, FilterBank) -> Unit
+
+// Type aliases
+
+// Traits
+
