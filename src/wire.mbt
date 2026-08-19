@@ -34,13 +34,14 @@ pub fn stuff(bits : Array[Bool]) -> Array[Bool] {
       run = 1
     }
     if run == 5 {
-      result.push(previous)
-      result.push(!previous)
+      result.push(bit)
+      result.push(!bit)
+      previous = !bit
       run = 1
     } else {
       result.push(bit)
+      previous = bit
     }
-    previous = bit
   }
   result
 }
@@ -62,15 +63,16 @@ pub fn destuff(bits : Array[Bool]) -> Array[Bool] raise WireError {
   }
   let mut previous = bits[0]
   let mut run = 1
+  let mut expect_stuffed = false
   result.push(previous)
   let mut i = 1
   while i < bits.length() {
     let bit = bits[i]
-    if run == 5 {
+    if expect_stuffed {
       if bit == previous {
         raise WireError::InvalidStuffedBit
       }
-      run = 0
+      expect_stuffed = false
     } else {
       result.push(bit)
       if bit == previous {
@@ -78,6 +80,9 @@ pub fn destuff(bits : Array[Bool]) -> Array[Bool] raise WireError {
       } else {
         previous = bit
         run = 1
+      }
+      if run > 0 && run % 5 == 0 {
+        expect_stuffed = true
       }
     }
     i += 1

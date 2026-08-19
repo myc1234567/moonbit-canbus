@@ -3,6 +3,10 @@ name: MoonBit checks
 on:
   push:
   pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
   check:
@@ -16,6 +20,23 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Set up Node.js for JavaScript tests
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install C compiler on Linux
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gcc
+
+      - name: Install C compiler on macOS
+        if: runner.os == 'macOS'
+        run: brew install gcc
 
       - name: Install MoonBit on Unix
         if: runner.os != 'Windows'
@@ -35,14 +56,35 @@ jobs:
       - name: Verify toolchain
         run: moon version --all
 
+      - name: Update dependencies
+        run: moon update
+
       - name: Format and interface checks
         run: |
-          moon fmt --check
-          moon check --deny-warn
+          moon fmt
           moon info
           git diff --exit-code
 
-      - name: Test all backends
+      - name: Check all backends
         run: |
-          moon test --deny-warn --target all
-          moon test --deny-warn --target native
+          moon check --target all --deny-warn
+          moon build --target wasm-gc
+
+      - name: Test all backends
+        run: moon test --target all --deny-warn
+
+      - name: Native coverage smoke test
+        if: runner.os == 'Linux'
+        run: |
+          moon test --target native --deny-warn --enable-coverage
+          moon coverage report -f summary
+
+      - name: Enforce production MoonBit source size
+        if: runner.os == 'Linux'
+        run: |
+          lines=$(find . -name '*.mbt' ! -name '*_test.mbt' ! -name '*_wbtest.mbt' -not -path './_build/*' -print0 | xargs -0 cat | wc -l)
+          echo "Production MoonBit source lines: $lines"
+          test "$lines" -ge 8000
+
+      - name: Ensure generated files are committed
+        run: git diff --exit-code

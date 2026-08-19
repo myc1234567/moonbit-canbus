@@ -139,3 +139,9 @@ pub fn Message::find(self : Message, name : String) -> Signal? {
   }
   None
 }
+
+///|
+/// Return whether the signal uses Intel/little-endian bit ordering.
+pub fn Signal::little_endian(self : Signal) -> Bool {
+  self.little_endian
+}

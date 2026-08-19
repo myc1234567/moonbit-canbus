@@ -1,68 +1,91 @@
 # MoonBit CAN Bus
 
-MoonBit CAN Bus 是面向汽车电子、机器人和工业控制仿真的 CAN 2.0 / CAN-FD 基础工具包。它提供纯 MoonBit、无原生依赖的帧模型、DLC 处理、CRC、位填充、优先级仲裁、接收过滤、内存虚拟总线、DBC 消息/信号读取，以及一组可继续扩展的 UDS 诊断请求构造器。
+一个纯 MoonBit、无原生依赖的 CAN 2.0 / CAN-FD 协议与仿真工具包，面向汽车电子、机器人、工业控制和协议测试场景。项目把帧语义、线级编解码、传输层、诊断、DBC 信号、网关和确定性仿真组合成可独立复用的 API。
 
-## 为什么做这个项目
+## 项目定位
 
-MoonBit 生态已经有通用数据结构、序列化和异步基础设施，但面向控制器网络的 CAN 帧语义、确定性总线仿真、DBC 信号解码和诊断请求仍缺少一个组合式的基础包。本项目选择从协议语义和仿真边界出发，保持 API 小而稳定，后续可以接入 J1939、CANopen、硬件适配器和记录回放工具。
+本项目解决的是“没有硬件也能可靠验证控制器网络逻辑”的问题：同一套数据模型可以用于协议单元测试、DBC 信号解码、虚拟 ECU 联调、日志分析和网关规则验证。它不直接驱动 CAN 控制器，也不替代操作系统的 SocketCAN 或商业硬件 SDK。
 
-项目为原创实现，不是对现有 MoonBit 包的直接移植，也不复制其他仓库的源码、测试数据或生成文件。协议字段按公开的 ISO 11898 / ISO 15765 概念实现；实现不包含受限标准正文或商业硬件驱动。
+## 核心能力
 
-## 当前能力
-
-- 标准 11-bit、扩展 29-bit、数据帧、远程帧和本地错误帧模型。
-- CAN 2.0 载荷校验（0–8 字节）和 CAN-FD 载荷校验（0–64 字节）。
-- CAN-FD DLC 映射、CRC-15、CRC-17、CRC-21、位填充/去填充。
-- 按数值 ID 进行确定性优先级仲裁。
-- 精确过滤器、掩码过滤器和有界虚拟总线队列。
-- DBC 中常用的 `BO_` / `SG_` 消息与信号描述读取。
-- 小型信号编解码 API，以及 UDS 会话控制、ECU Reset、ReadDataByIdentifier、TesterPresent 请求。
-- ISO-TP 单帧/首帧/连续帧/流控帧分段与重组。
-- J1939 29-bit 标识符和 PGN 解析，以及带时间戳的确定性总线记录回放。
+- 标准 11-bit、扩展 29-bit、数据帧、远程帧、错误帧和 CAN-FD 帧模型。
+- CAN-FD DLC 映射、CRC-15/17/21、位填充与去填充、完整 wire 编解码和稳定二进制帧格式。
+- 优先级仲裁、掩码/精确过滤器、确定性虚拟总线、节点注册、发送队列和多节点网络模型。
+- ISO-TP 分段与重组、J1939 标识符与 BAM、CANopen COB-ID/SDO/PDO，以及 UDS 请求、会话、DTC 编解码。
+- DBC `BO_` / `SG_` 解析、运行时信号编解码、规范化序列化、结构校验和 schema diff。
+- 路由网关、调度器、帧批处理、日志/trace、总线指标、延迟窗口和帧准入策略。
 
 ## 快速开始
 
-需要 MoonBit 0.10.3 或更新版本。
+需要已安装 MoonBit stable 工具链。
 
 ```bash
-moon check --deny-warn
-moon test --deny-warn
+moon check --target all --deny-warn
+moon test --target all --deny-warn
 ```
 
-在 MoonBit 代码中，帧和总线可以这样组合：
+在 MoonBit 中创建并检查一帧：
 
-```mbt nocheck
-let frame = @moonbit_canbus.data_frame(0x120, [0x2A]) catch { _ => panic() }
-let bus = @moonbit_canbus.new_bus(16)
-let filters = @moonbit_canbus.new_filter_bank()
-filters.add(@moonbit_canbus.mask_filter(0x100, 0x700))
-bus.set_filters(filters)
-ignore(bus.publish(frame))
-let received = bus.receive()
+```mbt
+let frame = @moonbit_canbus.data_frame(0x120, [0x2A]) catch {
+  _ => panic()
+}
+let wire = @moonbit_canbus.encode_frame(frame)
+let restored = @moonbit_canbus.decode_frame(wire) catch {
+  _ => panic()
+}
+assert_true(@moonbit_canbus.frame_equal(frame, restored))
 ```
 
-## 目录结构
+## CLI
 
-`src/frame.mbt` 定义帧与 DLC；`src/crc.mbt` 和 `src/wire.mbt` 负责线级算法；`src/filter.mbt` 提供过滤器和虚拟总线；`src/signal.mbt`、`src/dbc.mbt` 负责 DBC 子集和信号；`src/transport.mbt`、`src/j1939.mbt` 和 `src/trace.mbt` 提供传输层、J1939 和记录回放；`src/diagnostic.mbt` 提供 UDS 请求骨架。`*_test.mbt` 覆盖这些核心路径。
-
-## 设计边界与路线
-
-当前包专注于可测试的协议模型，不声称直接驱动 CAN 控制器。后续按兼容性优先增加：完整 DBC 属性/注释解析、ISO-TP 分段、J1939 PGN、CANopen 对象字典、事件型虚拟总线、日志回放，以及 Linux SocketCAN/串口适配层。
-
-## 许可证与来源
-
-本项目使用 Apache License 2.0，许可证见根目录 `LICENSE`。项目没有第三方源码拷贝，DBC 示例是手写的最小文本片段；若后续加入公开数据库样例或硬件适配代码，会在 `NOTICE` 或独立来源文件中记录名称、链接、许可证和取用范围。
-
-## 质量检查
-
-本地和 CI 使用 MoonBit 0.10.3 工具链执行：
+CLI 位于 `src/cmd/canctl`，用于快速查看帧编码和指标：
 
 ```bash
-moon fmt --check
-moon check --deny-warn
-moon test --deny-warn
+moon run src/cmd/canctl -- demo
+moon run src/cmd/canctl -- decode 01000000012303102030
+```
+
+基准程序位于 `src/cmd/bench`，执行 100,000 次稳定帧编码/解码并输出耗时、吞吐、字节数和校验值：
+
+```bash
+moon run src/cmd/bench
+```
+
+## 架构
+
+| 层次 | 主要模块 | 责任 |
+| --- | --- | --- |
+| Frame / wire | `frame.mbt`, `frame_codec.mbt`, `wire.mbt`, `wire_codec.mbt` | 帧不变量、DLC、CRC、bit stuffing 和可移植编码 |
+| Transport | `transport.mbt`, `isotp_engine.mbt`, `transport_queue.mbt` | ISO-TP、队列、时序与边界处理 |
+| Database | `dbc.mbt`, `dbc_extended.mbt`, `dbc_runtime.mbt`, `dbc_serializer.mbt` | DBC 解析、信号运行时和 schema 工具 |
+| Diagnostics | `diagnostic.mbt`, `uds_stack.mbt`, `diagnostic_session.mbt`, `diagnostic_codec.mbt` | UDS 服务、会话状态和 DTC 报文 |
+| Network | `filter.mbt`, `can_network.mbt`, `routing.mbt`, `simulation.mbt` | 过滤、网关、多节点网络和确定性仿真 |
+| Analysis | `trace.mbt`, `trace_tools.mbt`, `metrics.mbt`, `latency.mbt` | 日志、指标、延迟和质量分析 |
+
+模块之间通过 `Frame`、`Filter`、`Trace` 等小型值对象连接，避免把硬件 I/O、时钟和协议状态耦合到核心算法中。
+
+## 基准
+
+基准程序使用本地 MoonBit WASM-GC 后端和固定的 8-byte Classic CAN 数据帧，实际运行记录见 [BENCHMARKS.md](BENCHMARKS.md)。基准输出包含可复核的迭代次数、墙钟耗时、吞吐和 checksum；不同机器和后端的绝对数值会变化，因此仓库不把单次机器结果当作性能承诺。
+
+## 测试与边界覆盖
+
+测试覆盖 Classic CAN、CAN-FD、29-bit ID、64-byte payload、DLC 边界、CRC/bit stuffing、ISO-TP 长消息、UDS 负响应、DTC、DBC 非法布局、队列满/空、时间逆序、节点离线、速率限制、trace 和延迟百分位等路径。
+
+本地质量门禁：
+
+```bash
+moon fmt
+moon check --target all --deny-warn
+moon test --target all --deny-warn
 moon info
-git diff --exit-code
 ```
 
-生成的 `pkg.generated.mbti` 只通过 `moon info` 更新，不手工编辑。提交前应将实际 GitHub 账号写入 `moon.mod` 的 `name` 与 `repository`，再把同一默认分支同步到 Gitlink；本地仓库不包含任何远程推送配置。
+## CI
+
+`.github/workflows/check.yml` 在 Linux、macOS 和 Windows 上安装 MoonBit stable，显式配置 Node.js 运行时，执行格式检查、`moon info`、全后端 check/build/test，并验证生产 MoonBit 源码规模门槛。工作流使用官方安装脚本，便于工具链持续跟随 stable。
+
+## 许可证
+
+本项目采用 [Apache License 2.0](LICENSE)。

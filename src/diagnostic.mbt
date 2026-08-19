@@ -4,6 +4,17 @@ pub enum UdsService {
   DiagnosticSessionControl
   EcuReset
   ReadDataByIdentifier
+  WriteDataByIdentifier
+  ReadMemoryByAddress
+  WriteMemoryByAddress
+  RoutineControl
+  SecurityAccess
+  CommunicationControl
+  ClearDiagnosticInformation
+  ReadDtcInformation
+  RequestDownload
+  TransferData
+  RequestTransferExit
   TesterPresent
 }
 
@@ -84,6 +95,17 @@ pub fn decode_response(
     DiagnosticSessionControl => 0x50
     EcuReset => 0x51
     ReadDataByIdentifier => 0x62
+    WriteDataByIdentifier => 0x6E
+    ReadMemoryByAddress => 0x63
+    WriteMemoryByAddress => 0x7D
+    RoutineControl => 0x71
+    SecurityAccess => 0x67
+    CommunicationControl => 0x68
+    ClearDiagnosticInformation => 0x54
+    ReadDtcInformation => 0x59
+    RequestDownload => 0x74
+    TransferData => 0x76
+    RequestTransferExit => 0x77
     TesterPresent => 0x7E
   }
   if payload[0].to_int() == expected {

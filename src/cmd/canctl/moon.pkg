@@ -1,0 +1,6 @@
+import {
+  "myc1234567/moonbit-canbus" @can,
+  "moonbitlang/core/env",
+}
+
+pkgtype(kind: "executable")

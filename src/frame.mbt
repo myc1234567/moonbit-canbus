@@ -158,6 +158,30 @@ pub fn Frame::bitrate_switch(self : Frame) -> Bool {
 }
 
 ///|
+/// Return whether the CAN-FD error-state indicator is set.
+pub fn Frame::error_state_indicator(self : Frame) -> Bool {
+  self.error_state_indicator
+}
+
+///|
+/// Return whether this frame carries application data.
+pub fn Frame::is_data(self : Frame) -> Bool {
+  self.kind is Data
+}
+
+///|
+/// Return whether this frame is a remote request.
+pub fn Frame::is_remote(self : Frame) -> Bool {
+  self.kind is Remote
+}
+
+///|
+/// Return whether this frame is a local simulation error.
+pub fn Frame::is_error(self : Frame) -> Bool {
+  self.kind is Error
+}
+
+///|
 /// Return the data length code for this frame.
 pub fn Frame::dlc(self : Frame) -> Byte {
   match self.protocol {
