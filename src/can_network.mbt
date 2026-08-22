@@ -48,9 +48,7 @@ pub fn new_can_network(
     timeout_us,
     now_us: 0,
     nodes: [],
-    queue: new_frame_queue(queue_capacity) catch {
-      error => raise error
-    },
+    queue: new_frame_queue(queue_capacity),
     delivered: 0,
   }
 }

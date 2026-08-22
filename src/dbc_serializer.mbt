@@ -58,9 +58,7 @@ pub fn validate_dbc_schema(
       maximum_required_bytes = required
     }
     for signal in item_signals {
-      validate_signal(item, signal) catch {
-        error => raise error
-      }
+      validate_signal(item, signal)
     }
     for left_index in 0..<item_signals.length() {
       let left = item_signals[left_index]
