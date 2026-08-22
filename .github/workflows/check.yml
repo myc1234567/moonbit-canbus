@@ -84,7 +84,7 @@ jobs:
         run: |
           lines=$(find . -name '*.mbt' ! -name '*_test.mbt' ! -name '*_wbtest.mbt' -not -path './_build/*' -print0 | xargs -0 cat | wc -l)
           echo "Production MoonBit source lines: $lines"
-          test "$lines" -ge 8000
+          test "$lines" -ge 20000
 
       - name: Ensure generated files are committed
         run: git diff --exit-code

@@ -13,8 +13,8 @@ One local run on 2026-08-19 with MoonBit `0.1.20260807` / MoonC `0.10.7+bc794d34
 ```text
 benchmark=frame-codec
 iterations=100000
-elapsed_ms=106
-operations_per_second=943396.2264150943
+elapsed_ms=64
+operations_per_second=1562500
 encoded_bytes=1500000
 checksum=0
 ```

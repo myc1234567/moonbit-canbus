@@ -57,11 +57,11 @@ moon run src/cmd/bench
 | 层次 | 主要模块 | 责任 |
 | --- | --- | --- |
 | Frame / wire | `frame.mbt`, `frame_codec.mbt`, `wire.mbt`, `wire_codec.mbt` | 帧不变量、DLC、CRC、bit stuffing 和可移植编码 |
-| Transport | `transport.mbt`, `isotp_engine.mbt`, `transport_queue.mbt` | ISO-TP、队列、时序与边界处理 |
-| Database | `dbc.mbt`, `dbc_extended.mbt`, `dbc_runtime.mbt`, `dbc_serializer.mbt` | DBC 解析、信号运行时和 schema 工具 |
-| Diagnostics | `diagnostic.mbt`, `uds_stack.mbt`, `diagnostic_session.mbt`, `diagnostic_codec.mbt` | UDS 服务、会话状态和 DTC 报文 |
-| Network | `filter.mbt`, `can_network.mbt`, `routing.mbt`, `simulation.mbt` | 过滤、网关、多节点网络和确定性仿真 |
-| Analysis | `trace.mbt`, `trace_tools.mbt`, `metrics.mbt`, `latency.mbt` | 日志、指标、延迟和质量分析 |
+| Transport | `transport.mbt`, `isotp_engine.mbt`, `isotp_session.mbt`, `j1939_transport.mbt`, `transport_queue.mbt` | ISO-TP、J1939、队列、时序与边界处理 |
+| Database | `dbc.mbt`, `dbc_extended.mbt`, `dbc_runtime.mbt`, `dbc_workspace.mbt`, `dbc_codegen.mbt`, `dbc_serializer.mbt` | DBC 解析、信号运行时、schema 工具和代码生成 |
+| Diagnostics | `diagnostic.mbt`, `uds_stack.mbt`, `diagnostic_session.mbt`, `diagnostic_catalog.mbt`, `diagnostic_workflow.mbt`, `diagnostic_codec.mbt`, `ecu_simulator.mbt` | UDS 服务、会话状态、DTC、ECU 仿真和诊断工作流 |
+| Network | `filter.mbt`, `can_network.mbt`, `hardware_adapter.mbt`, `canopen_device.mbt`, `routing.mbt`, `gateway_policy_advanced.mbt`, `simulation.mbt`, `simulation_profile.mbt` | 过滤、适配器抽象、CANopen、网关、多节点网络和确定性仿真 |
+| Analysis | `trace.mbt`, `trace_query.mbt`, `trace_export.mbt`, `bus_analysis_advanced.mbt`, `network_health_advanced.mbt`, `compatibility_matrix.mbt`, `metrics.mbt`, `latency.mbt` | 日志查询、导出、总线利用率、网络健康和部署兼容性分析 |
 
 模块之间通过 `Frame`、`Filter`、`Trace` 等小型值对象连接，避免把硬件 I/O、时钟和协议状态耦合到核心算法中。
 

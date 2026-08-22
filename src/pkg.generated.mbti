@@ -28,7 +28,19 @@ pub fn bits_to_bytes(Array[Bool]) -> Array[Byte]
 
 pub fn bits_to_string(Array[Bool]) -> String
 
+pub fn bus_analysis_anomaly_text(BusAnalysisAnomaly) -> String
+
+pub fn bus_analysis_anomaly_variants() -> Array[BusAnalysisAnomaly]
+
+pub fn bus_analysis_mode_variants() -> Array[BusAnalysisMode]
+
+pub fn bus_analysis_trace(Trace, String, mode? : BusAnalysisMode, bitrate_kbps? : UInt) -> BusAnalysisReport
+
 pub fn bus_health_name(BusHealthState) -> String
+
+pub fn bus_interval_percentile(Array[UInt64], Int) -> UInt64
+
+pub fn bus_observation(UInt64, Frame, channel? : String, sequence? : UInt) -> BusObservation
 
 pub fn bus_utilization(FrameMetrics, UInt64, UInt) -> Double
 
@@ -36,7 +48,17 @@ pub fn bytes_to_bits(Array[Byte]) -> Array[Bool]
 
 pub fn calculate_bit_timing(UInt, UInt, Double) -> CanBitTiming raise CanTimingError
 
+pub fn can_adapter_capabilities(classic? : Bool, can_fd? : Bool, bitrate_switch? : Bool, listen_only? : Bool, loopback? : Bool, timestamping? : Bool, max_rx_queue? : Int, max_tx_queue? : Int) -> CanAdapterCapabilities
+
+pub fn can_adapter_config(nominal_bitrate_kbps? : UInt, data_bitrate_kbps? : UInt, listen_only? : Bool, loopback? : Bool, receive_own? : Bool, filter? : Filter?) -> CanAdapterConfig
+
+pub fn can_adapter_lifecycle_variants() -> Array[CanAdapterLifecycle]
+
+pub fn can_adapter_message(UInt64, Frame, Bool, UInt) -> CanAdapterMessage
+
 pub fn can_fd_timing(CanBitTiming, CanBitTiming) -> CanFdTiming raise CanTimingError
+
+pub fn can_frame_duration_us(Frame, UInt, UInt) -> UInt64
 
 pub fn can_line(UInt64, Frame) -> String
 
@@ -48,11 +70,27 @@ pub fn canopen_cob_id(CanOpenCobType, Byte) -> UInt raise CanOpenError
 
 pub fn canopen_cob_name(CanOpenCobType) -> String
 
+pub fn canopen_device_sdo_result_variants() -> Array[CanOpenDeviceSdoResult]
+
+pub fn canopen_device_sdo_session(UInt, Byte, Bool, Array[Byte], block_size? : Int) -> CanOpenDeviceSdoSession
+
+pub fn canopen_device_state_text(CanOpenDeviceState) -> String
+
+pub fn canopen_device_state_variants() -> Array[CanOpenDeviceState]
+
 pub fn canopen_emergency(UInt, Byte, Array[Byte]) -> Array[Byte] raise CanOpenError
 
 pub fn canopen_heartbeat(Byte) -> Array[Byte]
 
+pub fn canopen_heartbeat_monitor(Byte, UInt64) -> CanOpenHeartbeatMonitor
+
+pub fn canopen_heartbeat_state_variants() -> Array[CanOpenHeartbeatState]
+
 pub fn canopen_nmt(CanOpenNmtCommand, Byte) -> Array[Byte] raise CanOpenError
+
+pub fn canopen_object_access_variants() -> Array[CanOpenObjectAccess]
+
+pub fn canopen_object_entry(UInt, Byte, String, access? : CanOpenObjectAccess, initial? : Array[Byte], max_length? : Int) -> CanOpenObjectEntry
 
 pub fn canopen_sdo_decode(Array[Byte]) -> CanOpenSdoCommand raise CanOpenError
 
@@ -76,6 +114,112 @@ pub fn communication_control(Byte, Byte) -> DiagnosticRequest
 
 pub fn compare_frames(Frame, Frame) -> Int
 
+pub fn compatibility_accepts(CompatibilityMatrix, CompatibilityTarget) -> Bool
+
+pub fn compatibility_add_diagnostic_requirements(CompatibilityMatrix) -> Unit
+
+pub fn compatibility_add_gateway_requirements(CompatibilityMatrix) -> Unit
+
+pub fn compatibility_add_vehicle_requirements(CompatibilityMatrix) -> Unit
+
+pub fn compatibility_build_default_routes() -> CompatibilityRouteTable
+
+pub fn compatibility_can_bridge(CompatibilityTarget, CompatibilityProtocol) -> Bool
+
+pub fn compatibility_canopen_target(name? : String, node_capacity? : Int) -> CompatibilityTarget
+
+pub fn compatibility_ci_annotations(CompatibilityMatrix) -> String
+
+pub fn compatibility_classic_target(name? : String, node_capacity? : Int) -> CompatibilityTarget
+
+pub fn compatibility_compare_targets(CompatibilityTarget, CompatibilityTarget) -> CompatibilityDelta
+
+pub fn compatibility_default_matrix() -> CompatibilityMatrix
+
+pub fn compatibility_default_release_gate() -> CompatibilityReleaseGate
+
+pub fn compatibility_diagnostics_matrix() -> CompatibilityMatrix
+
+pub fn compatibility_failures(CompatibilityEvaluation) -> Array[CompatibilityIssue]
+
+pub fn compatibility_fd_target(name? : String, node_capacity? : Int) -> CompatibilityTarget
+
+pub fn compatibility_forbids_feature(String, String, description? : String, severity? : CompatibilitySeverity) -> CompatibilityRequirement
+
+pub fn compatibility_gateway_matrix() -> CompatibilityMatrix
+
+pub fn compatibility_gateway_target(name? : String, node_capacity? : Int) -> CompatibilityTarget
+
+pub fn compatibility_inventory(CompatibilityTarget) -> String
+
+pub fn compatibility_isotp_target(name? : String, node_capacity? : Int) -> CompatibilityTarget
+
+pub fn compatibility_j1939_target(name? : String, node_capacity? : Int) -> CompatibilityTarget
+
+pub fn compatibility_matrix(name? : String, strict? : Bool) -> CompatibilityMatrix
+
+pub fn compatibility_matrix_for_target(CompatibilityTarget, Array[CompatibilityRequirement], strict? : Bool) -> CompatibilityMatrix
+
+pub fn compatibility_minimum_bitrate(String, Int, description? : String, severity? : CompatibilitySeverity) -> CompatibilityRequirement
+
+pub fn compatibility_minimum_data_bitrate(String, Int, description? : String, severity? : CompatibilitySeverity) -> CompatibilityRequirement
+
+pub fn compatibility_minimum_identifier_bits(String, Int, description? : String, severity? : CompatibilitySeverity) -> CompatibilityRequirement
+
+pub fn compatibility_minimum_node_capacity(String, Int, description? : String, severity? : CompatibilitySeverity) -> CompatibilityRequirement
+
+pub fn compatibility_minimum_payload(String, Int, description? : String, severity? : CompatibilitySeverity) -> CompatibilityRequirement
+
+pub fn compatibility_protocol_is(String, CompatibilityProtocol, description? : String, severity? : CompatibilitySeverity) -> CompatibilityRequirement
+
+pub fn compatibility_protocol_text(CompatibilityProtocol) -> String
+
+pub fn compatibility_protocol_variants() -> Array[CompatibilityProtocol]
+
+pub fn compatibility_release_gate(name? : String, minimum_score? : Int, require_all_targets? : Bool) -> CompatibilityReleaseGate
+
+pub fn compatibility_remediation(CompatibilityEvaluation) -> String
+
+pub fn compatibility_requirement_kind_text(CompatibilityRequirementKind) -> String
+
+pub fn compatibility_requirement_kind_variants() -> Array[CompatibilityRequirementKind]
+
+pub fn compatibility_requires_classic(String, description? : String, severity? : CompatibilitySeverity) -> CompatibilityRequirement
+
+pub fn compatibility_requires_diagnostics(String, description? : String, severity? : CompatibilitySeverity) -> CompatibilityRequirement
+
+pub fn compatibility_requires_fd(String, description? : String, severity? : CompatibilitySeverity) -> CompatibilityRequirement
+
+pub fn compatibility_requires_feature(String, String, description? : String, severity? : CompatibilitySeverity) -> CompatibilityRequirement
+
+pub fn compatibility_requires_isotp(String, description? : String, severity? : CompatibilitySeverity) -> CompatibilityRequirement
+
+pub fn compatibility_route(CompatibilityTarget, CompatibilityTarget, CompatibilityProtocol) -> CompatibilityRoute
+
+pub fn compatibility_route_payload_budget(CompatibilityRoute) -> Int
+
+pub fn compatibility_route_table() -> CompatibilityRouteTable
+
+pub fn compatibility_schema_version() -> String
+
+pub fn compatibility_severity_text(CompatibilitySeverity) -> String
+
+pub fn compatibility_severity_variants() -> Array[CompatibilitySeverity]
+
+pub fn compatibility_snapshot(CompatibilityMatrix) -> String
+
+pub fn compatibility_standard_target_matrix(CompatibilityTarget) -> CompatibilityMatrix
+
+pub fn compatibility_target(String, CompatibilityProtocol, Int, Int, Int, Int, Int, features? : Array[String], notes? : String) -> CompatibilityTarget
+
+pub fn compatibility_target_fingerprint(CompatibilityTarget) -> UInt64
+
+pub fn compatibility_targets_for_protocol(CompatibilityProtocol) -> Array[CompatibilityTarget]
+
+pub fn compatibility_uds_target(name? : String, node_capacity? : Int) -> CompatibilityTarget
+
+pub fn compatibility_warnings(CompatibilityEvaluation) -> Array[CompatibilityIssue]
+
 pub fn count_stuffed_bits(Array[Bool]) -> Int
 
 pub fn counter_is_next(Byte, Byte) -> Bool
@@ -94,6 +238,44 @@ pub fn crc8_sae_j1850(Array[Byte]) -> Byte
 
 pub fn data_frame(UInt, Array[Byte], extended? : Bool) -> Frame raise FrameError
 
+pub fn dbc_codegen(Array[Message], DbcCodegenOptions) -> DbcGeneratedArtifact
+
+pub fn dbc_codegen_all_targets(Array[Message], String) -> Array[DbcGeneratedArtifact]
+
+pub fn dbc_codegen_identifier(String) -> String
+
+pub fn dbc_codegen_lint(Array[Message]) -> Array[String]
+
+pub fn dbc_codegen_options(target? : DbcCodegenTarget, module_name? : String, include_comments? : Bool, include_validation? : Bool, line_ending? : String) -> DbcCodegenOptions
+
+pub fn dbc_codegen_report(Array[Message]) -> String
+
+pub fn dbc_codegen_target_name(DbcCodegenTarget) -> String
+
+pub fn dbc_codegen_target_variants() -> Array[DbcCodegenTarget]
+
+pub fn dbc_codegen_total_lines(Array[DbcGeneratedArtifact]) -> Int
+
+pub fn dbc_codegen_workspace(DbcWorkspace, DbcCodegenOptions) -> DbcGeneratedArtifact
+
+pub fn dbc_workspace_binding(String, Message, selector? : DbcWorkspaceMuxSelector, extended? : Bool) -> DbcWorkspaceBinding
+
+pub fn dbc_workspace_from_text(String) -> DbcWorkspace raise DbcError
+
+pub fn dbc_workspace_issue_text(DbcWorkspaceIssue) -> String
+
+pub fn dbc_workspace_issue_variants() -> Array[DbcWorkspaceIssue]
+
+pub fn dbc_workspace_mux_accepts(DbcWorkspaceMuxSelector, UInt) -> Bool
+
+pub fn dbc_workspace_mux_variants() -> Array[DbcWorkspaceMuxSelector]
+
+pub fn dbc_workspace_signal_group(String, UInt, signals? : Array[Signal]) -> DbcWorkspaceSignalGroup
+
+pub fn dbc_workspace_value(String, Double) -> DbcWorkspaceValue
+
+pub fn dbc_workspace_values(Array[String], Array[Double]) -> DbcWorkspaceValueSet
+
 pub fn decode_canopen_cob_id(UInt) -> CanOpenCobId raise CanOpenError
 
 pub fn decode_frame(Array[Byte]) -> Frame raise FrameCodecError
@@ -110,15 +292,65 @@ pub fn decode_wire_can20(Array[Bool]) -> Frame raise WireCodecError
 
 pub fn decode_wire_canfd(Array[Bool]) -> Frame raise WireCodecError
 
+pub fn default_diagnostic_session() -> DiagnosticSessionProfile
+
 pub fn destuff(Array[Bool]) -> Array[Bool] raise WireError
+
+pub fn diagnostic_addressing_modes() -> Array[DiagnosticAddressingMode]
+
+pub fn diagnostic_data_identifier(UInt, String, Int, readable? : Bool, writable? : Bool, initial? : Array[Byte]) -> DiagnosticDataIdentifier
+
+pub fn diagnostic_dtc_queries() -> Array[DtcQuery]
+
+pub fn diagnostic_event(UInt64, DiagnosticRequest, Array[Byte], UInt64) -> DiagnosticEvent
 
 pub fn diagnostic_frame(DiagnosticRequest, UInt, extended? : Bool) -> Frame raise FrameError
 
+pub fn diagnostic_identification_workflow(Array[UInt]) -> DiagnosticWorkflow
+
+pub fn diagnostic_keepalive_deadline(DiagnosticSessionProfile, UInt64) -> UInt64
+
+pub fn diagnostic_readiness(Bool, Bool, Bool, Bool, Bool) -> DiagnosticReadiness
+
+pub fn diagnostic_readiness_all(Array[DiagnosticReadiness]) -> DiagnosticReadiness
+
+pub fn diagnostic_retry_policy(max_attempts? : Int, backoff_us? : UInt64, retry_negative? : Bool) -> DiagnosticRetryPolicy
+
+pub fn diagnostic_session_kinds() -> Array[DiagnosticSessionKind]
+
+pub fn diagnostic_session_name(DiagnosticSessionKind) -> String
+
+pub fn diagnostic_session_profile(DiagnosticSessionKind, UInt64, UInt64, UInt64, addressing? : DiagnosticAddressingMode, security_level? : Byte) -> DiagnosticSessionProfile
+
+pub fn diagnostic_session_requires_keepalive(DiagnosticSessionProfile) -> Bool
+
+pub fn diagnostic_trouble_code(UInt, Byte, severity? : Byte, snapshot? : Array[Byte], extended_data? : Array[Byte], timestamp_us? : UInt64) -> DiagnosticTroubleCode
+
+pub fn diagnostic_workflow_state_text(DiagnosticWorkflowState) -> String
+
+pub fn diagnostic_workflow_state_variants() -> Array[DiagnosticWorkflowState]
+
+pub fn diagnostic_workflow_step(String, DiagnosticRequest, timeout_us? : UInt64, retry? : DiagnosticRetryPolicy) -> DiagnosticWorkflowStep
+
 pub fn diff_dbc_schema(Array[Message], Array[Message]) -> Array[DbcSchemaChange]
+
+pub fn dtc_matches(DiagnosticTroubleCode, DtcQuery) -> Bool
 
 pub fn dtc_record(UInt, Byte, occurrence? : UInt, snapshot? : Array[Byte]) -> DtcRecord raise DtcCodecError
 
+pub fn ecu_memory_permission_variants() -> Array[EcuMemoryPermission]
+
+pub fn ecu_memory_region(UInt, Int, permission? : EcuMemoryPermission) -> EcuMemoryRegion raise EcuMemoryError
+
+pub fn ecu_request_outcome_variants() -> Array[EcuRequestOutcome]
+
 pub fn ecu_reset(Byte) -> DiagnosticRequest
+
+pub fn ecu_reset_kind_variants() -> Array[EcuResetKind]
+
+pub fn ecu_security_policy(Byte, UInt, max_attempts? : Int, delay_us? : UInt64) -> EcuSecurityPolicy
+
+pub fn ecu_security_state_variants() -> Array[EcuSecurityState]
 
 pub fn encode_bits(Frame) -> Array[Bool]
 
@@ -139,6 +371,8 @@ pub fn error_frame(Byte) -> Frame
 pub fn estimate_transmission_us(Frame, UInt, UInt) -> UInt64
 
 pub fn exact_filter(UInt, extended? : Bool) -> Filter
+
+pub fn extended_diagnostic_session() -> DiagnosticSessionProfile
 
 pub fn fd_frame(UInt, Array[Byte], extended? : Bool, bitrate_switch? : Bool, error_state_indicator? : Bool) -> Frame raise FrameError
 
@@ -168,6 +402,12 @@ pub fn frame_is_valid(Frame) -> Bool
 
 pub fn frame_metrics(Array[Frame]) -> FrameMetrics
 
+pub fn frame_pipeline_action_variants() -> Array[FramePipelineAction]
+
+pub fn frame_pipeline_result_variants() -> Array[FramePipelineResult]
+
+pub fn frame_pipeline_rule(String, Filter, FramePipelineAction, max_payload? : Int, allow_fd? : Bool) -> FramePipelineRule raise FramePipelineError
+
 pub fn frame_summary(Frame) -> String
 
 pub fn frame_to_hex(Frame) -> String
@@ -184,11 +424,27 @@ pub fn frames_per_second(FrameMetrics, UInt64) -> Double
 
 pub fn gateway_pair(CanGateway, CanGateway) -> GatewayPair
 
+pub fn gateway_policy_context(UInt64, String, String, Frame) -> GatewayPolicyContext
+
+pub fn gateway_policy_decision_text(GatewayPolicyDecision) -> String
+
+pub fn gateway_policy_decision_variants() -> Array[GatewayPolicyDecision]
+
+pub fn gateway_policy_error_variants() -> Array[GatewayPolicyError]
+
+pub fn gateway_policy_pair(GatewayPolicyEngine, GatewayPolicyEngine, String, String, UInt64, Frame) -> Frame?
+
+pub fn gateway_policy_rule(String, Filter, output_id? : UInt?, prefix? : Array[Byte], max_payload? : Int, min_interval_us? : UInt64, allow_remote? : Bool) -> GatewayPolicyRule raise GatewayPolicyError
+
+pub fn isotp_channel(UInt, UInt, extended? : Bool, addressing? : IsoTpSessionAddressing, flow_control? : IsoTpFlowControlConfig) -> IsoTpChannel
+
 pub fn isotp_config(frame_bytes? : Int, block_size? : Byte, separation_time? : Byte) -> IsoTpConfig raise IsoTpError
 
 pub fn isotp_decode(Array[Byte]) -> IsoTpPacket?
 
 pub fn isotp_decode_checked(Array[Byte], IsoTpConfig) -> IsoTpPacket raise IsoTpError
+
+pub fn isotp_flow_control_config(Int, UInt64, Int, Int) -> IsoTpFlowControlConfig
 
 pub fn isotp_frames(UInt, Array[Byte], IsoTpConfig, extended? : Bool) -> Array[Frame] raise IsoTpError
 
@@ -198,11 +454,23 @@ pub fn isotp_reassemble_checked(Array[IsoTpPacket]) -> Array[Byte] raise IsoTpEr
 
 pub fn isotp_reassemble_frames(Array[Frame], IsoTpConfig) -> Array[Byte] raise IsoTpError
 
+pub fn isotp_receiver_result_variants() -> Array[IsoTpReceiverResult]
+
 pub fn isotp_segment(Array[Byte]) -> Array[Array[Byte]]
 
 pub fn isotp_segment_checked(Array[Byte], IsoTpConfig) -> Array[Array[Byte]] raise IsoTpError
 
+pub fn isotp_session_addressing_variants() -> Array[IsoTpSessionAddressing]
+
+pub fn isotp_transfer_summary(IsoTpTransmitter, IsoTpStreamReceiver) -> String
+
+pub fn isotp_transmitter_state_variants() -> Array[IsoTpTransmitterState]
+
+pub fn j1939_address_claim(Byte, UInt64, UInt, Byte, Byte, timestamp_us? : UInt64) -> J1939AddressClaim
+
 pub fn j1939_bam(UInt, Array[Byte]) -> Array[Array[Byte]] raise J1939Error
+
+pub fn j1939_decode_spns(Array[J1939SpnDefinition], Array[Byte]) -> Array[(UInt, Double)]
 
 pub fn j1939_destination(J1939Id) -> Byte
 
@@ -215,6 +483,12 @@ pub fn j1939_message(J1939Id, Array[Byte]) -> J1939Message raise J1939Error
 pub fn j1939_parse_bam(Array[Byte]) -> (Int, Int, UInt)?
 
 pub fn j1939_reassemble_bam(Array[Array[Byte]], Int) -> Array[Byte] raise J1939Error
+
+pub fn j1939_spn(UInt, String, Int, Int, factor? : Double, offset? : Double, minimum? : Double, maximum? : Double, unit? : String) -> J1939SpnDefinition
+
+pub fn j1939_transport_direction_variants() -> Array[J1939TransportDirection]
+
+pub fn j1939_transport_state_variants() -> Array[J1939TransportState]
 
 pub fn j1939_with_priority(J1939Id, Byte) -> J1939Id raise J1939Error
 
@@ -234,6 +508,14 @@ pub fn merge_traces(Trace, Trace) -> Trace
 
 pub fn message(UInt, String, Int) -> Message
 
+pub fn network_error_budget(max_error_rate? : Double, max_drop_rate? : Double, max_offline_nodes? : Int) -> NetworkErrorBudget
+
+pub fn network_node_health(Byte, String, timeout_us? : UInt64) -> NetworkNodeHealth
+
+pub fn network_node_health_state_text(NetworkNodeHealthState) -> String
+
+pub fn network_node_health_state_variants() -> Array[NetworkNodeHealthState]
+
 pub fn new_admission_policy() -> AdmissionPolicy
 
 pub fn new_bit_reader(Array[Bool]) -> BitReader
@@ -242,29 +524,87 @@ pub fn new_bit_writer() -> BitWriter
 
 pub fn new_bus(Int) -> VirtualBus
 
+pub fn new_bus_analyzer(BusAnalysisMode, channel? : String, bitrate_kbps? : UInt, burst_window_us? : UInt64, jitter_limit_us? : UInt64) -> BusAnalyzer
+
+pub fn new_can_adapter_hub() -> CanAdapterHub
+
+pub fn new_can_adapter_stats() -> CanAdapterStats
+
 pub fn new_can_log() -> CanLog
 
 pub fn new_can_network(timeout_us? : UInt64, queue_capacity? : Int) -> CanNetwork raise QueueError
 
+pub fn new_can_port(String, capabilities? : CanAdapterCapabilities) -> CanPort
+
+pub fn new_canopen_device(Byte, String, heartbeat_timeout_us? : UInt64) -> CanOpenDevice
+
+pub fn new_canopen_device_network() -> CanOpenDeviceNetwork
+
+pub fn new_canopen_object_dictionary(capacity? : Int) -> CanOpenObjectDictionary
+
 pub fn new_dbc_database() -> DbcDatabase
+
+pub fn new_dbc_workspace() -> DbcWorkspace
+
+pub fn new_dbc_workspace_value_set() -> DbcWorkspaceValueSet
+
+pub fn new_diagnostic_data_table() -> DiagnosticDataTable
+
+pub fn new_diagnostic_exchange_log() -> DiagnosticExchangeLog
+
+pub fn new_diagnostic_trouble_code_store(Int) -> DiagnosticTroubleCodeStore
+
+pub fn new_diagnostic_workflow() -> DiagnosticWorkflow
 
 pub fn new_dtc_report(Byte, Byte, Array[DtcRecord]) -> DtcReport
 
 pub fn new_dtc_store(Int) -> DtcStore raise DtcCodecError
 
+pub fn new_ecu_endpoint(UInt, String, security? : EcuSecurityPolicy) -> EcuEndpoint
+
+pub fn new_ecu_fleet() -> EcuFleet
+
+pub fn new_ecu_memory_map() -> EcuMemoryMap
+
 pub fn new_filter_bank() -> FilterBank
 
 pub fn new_filter_index(FilterBank) -> FilterIndex
 
+pub fn new_frame_deduplicator(window_us? : UInt64) -> FrameDeduplicator
+
+pub fn new_frame_pipeline(capacity? : Int) -> FramePipeline
+
+pub fn new_frame_pipeline_window(UInt64) -> FramePipelineWindow
+
 pub fn new_frame_queue(Int) -> FrameQueue raise QueueError
+
+pub fn new_frame_rate_limiter() -> FrameRateLimiter
 
 pub fn new_gateway() -> CanGateway
 
+pub fn new_gateway_policy_engine(capacity? : Int) -> GatewayPolicyEngine
+
 pub fn new_isotp_receiver(IsoTpConfig) -> IsoTpReceiver
+
+pub fn new_isotp_router() -> IsoTpRouter
+
+pub fn new_isotp_session(IsoTpFlowControlConfig, UInt64) -> IsoTpSession
+
+pub fn new_isotp_stream_receiver(IsoTpFlowControlConfig, UInt64) -> IsoTpStreamReceiver
+
+pub fn new_isotp_transmitter(Array[Byte], IsoTpFlowControlConfig, UInt64) -> IsoTpTransmitter
+
+pub fn new_j1939_address_manager(timeout_us? : UInt64) -> J1939AddressManager
+
+pub fn new_j1939_transport_session(UInt, J1939TransportDirection, timeout_us? : UInt64) -> J1939TransportSession
 
 pub fn new_latency_window(Int) -> LatencyWindow raise LatencyError
 
+pub fn new_network_health_tracker(budget? : NetworkErrorBudget) -> NetworkHealthTracker
+
 pub fn new_node_registry() -> NodeRegistry
+
+pub fn new_payload_codec(options? : PayloadCodecOptions) -> PayloadCodec
 
 pub fn new_pdo_mapping(payload_bytes? : Int) -> PdoMapping raise PdoError
 
@@ -272,7 +612,13 @@ pub fn new_scheduler() -> CanScheduler
 
 pub fn new_simulation(Int, UInt) -> Simulation
 
+pub fn new_simulation_scenario(String, capacity? : Int, bitrate_kbps? : UInt) -> SimulationScenario
+
 pub fn new_trace() -> Trace
+
+pub fn new_trace_exporter(options? : TraceExportOptions) -> TraceExporter
+
+pub fn new_trace_query() -> TraceQuerySpec
 
 pub fn new_uds_session(p2_timeout_us? : UInt64) -> UdsSession
 
@@ -288,6 +634,28 @@ pub fn parse_dtc_report(Array[Byte]) -> DtcReport raise DtcCodecError
 
 pub fn parse_uds_response(DiagnosticRequest, Array[Byte]) -> UdsResponseInfo raise UdsError
 
+pub fn payload_codec_checksum(Array[Byte], Int) -> Byte
+
+pub fn payload_codec_counter_valid(Byte, Byte, Int) -> Bool
+
+pub fn payload_codec_crc(Array[Byte]) -> Byte
+
+pub fn payload_codec_layout_valid(PayloadCodecOptions) -> Bool
+
+pub fn payload_codec_options(profile? : PayloadCodecProfile, counter_offset? : Int, counter_high_nibble? : Bool, crc_offset? : Int, checksum_offset? : Int, expected_length? : Int, counter_modulus? : Int) -> PayloadCodecOptions
+
+pub fn payload_codec_pack_counter(Array[Byte], Byte, Int, Bool) -> Array[Byte] raise PayloadError
+
+pub fn payload_codec_profile_text(PayloadCodecProfile) -> String
+
+pub fn payload_codec_profile_variants() -> Array[PayloadCodecProfile]
+
+pub fn payload_codec_report(PayloadCodec) -> String
+
+pub fn payload_codec_status_text(PayloadCodecStatus) -> String
+
+pub fn payload_codec_status_variants() -> Array[PayloadCodecStatus]
+
 pub fn payload_set_uint(Array[Byte], Int, Int, UInt, ByteOrder) -> Array[Byte] raise PayloadError
 
 pub fn payload_uint(Array[Byte], Int, Int, ByteOrder) -> UInt raise PayloadError
@@ -295,6 +663,10 @@ pub fn payload_uint(Array[Byte], Int, Int, ByteOrder) -> UInt raise PayloadError
 pub fn pdo_frame(Byte, Byte, Array[Byte]) -> Frame raise PdoError
 
 pub fn pgn(UInt, String, Int) -> Pgn
+
+pub fn process_frame_batch(FramePipeline, FrameRateLimiter, Array[(UInt64, Frame)]) -> Array[Frame]
+
+pub fn programming_diagnostic_session() -> DiagnosticSessionProfile
 
 pub fn read_data(UInt) -> DiagnosticRequest
 
@@ -316,6 +688,8 @@ pub fn route_rule(String, Filter, output_id? : UInt?, output_extended? : Bool?, 
 
 pub fn routine_control(Byte, UInt, data? : Array[Byte]) -> DiagnosticRequest raise UdsError
 
+pub fn run_simulation_scenarios(Array[SimulationScenario]) -> Array[SimulationScenarioResult] raise SimulationError
+
 pub fn schedule_miss_rate(Array[SchedulerTick]) -> Double
 
 pub fn schedule_wire_bits(Array[SchedulerTick]) -> Int
@@ -332,6 +706,16 @@ pub fn set_counter_nibble(Array[Byte], Int, Byte, Bool) -> Array[Byte] raise Pay
 
 pub fn signal(String, Int, Int, little_endian? : Bool, signed? : Bool, factor? : Double, offset? : Double, minimum? : Double, maximum? : Double, unit? : String) -> Signal
 
+pub fn simulation_scenario_assertion_variants() -> Array[SimulationScenarioAssertion]
+
+pub fn simulation_scenario_event(UInt64, Frame, source? : String) -> SimulationScenarioEvent
+
+pub fn simulation_scenario_state_text(SimulationScenarioState) -> String
+
+pub fn simulation_scenario_state_variants() -> Array[SimulationScenarioState]
+
+pub fn simulation_scenario_summary(Array[SimulationScenarioResult]) -> String
+
 pub fn sort_by_arbitration(Array[Frame]) -> Array[Frame]
 
 pub fn sort_j1939(Array[J1939Message]) -> Array[J1939Message]
@@ -340,9 +724,63 @@ pub fn stuff(Array[Bool]) -> Array[Bool]
 
 pub fn tester_present(suppress_response? : Bool) -> DiagnosticRequest
 
+pub fn trace_diff(Trace, Trace, compare_timestamp? : Bool) -> Array[TraceDiff]
+
+pub fn trace_diff_kind_variants() -> Array[TraceDiffKind]
+
+pub fn trace_export_between(Array[TraceExportRecord], UInt64, UInt64) -> Array[TraceExportRecord]
+
+pub fn trace_export_can_text(Array[TraceExportRecord], TraceExportOptions) -> String
+
+pub fn trace_export_csv(Array[TraceExportRecord], TraceExportOptions) -> String
+
+pub fn trace_export_difference_count(Array[TraceExportRecord], Array[TraceExportRecord]) -> Int
+
+pub fn trace_export_filter_id(Array[TraceExportRecord], UInt) -> Array[TraceExportRecord]
+
+pub fn trace_export_format_variants() -> Array[TraceExportFormat]
+
+pub fn trace_export_intervals(Array[TraceExportRecord], UInt) -> Array[UInt64]
+
+pub fn trace_export_options(format? : TraceExportFormat, include_channel? : Bool, include_sequence? : Bool, include_header? : Bool, normalize_timestamps? : Bool, max_rows? : Int) -> TraceExportOptions
+
+pub fn trace_export_record(UInt64, Int, String, Frame) -> TraceExportRecord
+
+pub fn trace_export_records(Trace, channel? : String, normalize_timestamps? : Bool) -> Array[TraceExportRecord]
+
+pub fn trace_export_replay_script(Array[TraceExportRecord]) -> String
+
+pub fn trace_export_sample(Array[TraceExportRecord], Int) -> Array[TraceExportRecord]
+
+pub fn trace_export_summary(Array[TraceExportRecord]) -> String
+
+pub fn trace_export_time_range(Array[TraceExportRecord]) -> (UInt64, UInt64)?
+
 pub fn trace_from_text(String) -> Trace raise TraceError
 
+pub fn trace_import_can_text(String) -> Trace raise CanTextError
+
 pub fn trace_metrics(Trace) -> FrameMetrics
+
+pub fn trace_query(Trace, TraceQuerySpec) -> Array[TraceQueryMatch]
+
+pub fn trace_query_buckets(Trace, UInt64, UInt64, UInt64) -> Array[TraceQueryBucket]
+
+pub fn trace_query_first(Trace, TraceQuerySpec) -> TraceQueryMatch?
+
+pub fn trace_query_identifier_counts(Array[TraceQueryMatch]) -> Array[(UInt, Int)]
+
+pub fn trace_query_last(Trace, TraceQuerySpec) -> TraceQueryMatch?
+
+pub fn trace_query_matches(Frame, Array[TraceQueryPredicate]) -> Bool
+
+pub fn trace_query_matches_predicate(Frame, TraceQueryPredicate) -> Bool
+
+pub fn trace_query_predicate_variants() -> Array[TraceQueryPredicate]
+
+pub fn trace_query_summary(Array[TraceQueryMatch]) -> String
+
+pub fn trace_replay_plan(Trace, scale_num? : UInt64, scale_den? : UInt64) -> TraceReplayPlan
 
 pub fn transfer_data(Byte, Array[Byte]) -> DiagnosticRequest raise UdsError
 
@@ -389,6 +827,16 @@ pub suberror BitError {
   InvalidValue
   OutOfBounds
 } derive(@debug.Debug)
+
+pub suberror CanAdapterError {
+  CanAdapterNotOpen
+  CanAdapterAlreadyOpen
+  CanAdapterBusOffError
+  CanAdapterQueueFull
+  CanAdapterUnsupported
+  CanAdapterInvalidConfiguration
+  CanAdapterRejectedFrame
+}
 
 pub suberror CanOpenError {
   InvalidNodeId
@@ -451,6 +899,13 @@ pub suberror DtcCodecError {
   CapacityExceeded
 } derive(@debug.Debug)
 
+pub suberror EcuMemoryError {
+  EcuMemoryOutOfRange
+  EcuMemoryPermissionDenied
+  EcuMemoryInvalidLength
+  EcuMemoryOverlappingRegion
+}
+
 pub suberror FrameCodecError {
   UnsupportedVersion
   Truncated
@@ -463,6 +918,20 @@ pub suberror FrameError {
   InvalidIdentifier
   InvalidLength
 } derive(@debug.Debug)
+
+pub suberror FramePipelineError {
+  FramePipelineInvalidPayload
+  FramePipelineRuleExists
+  FramePipelineRuleMissing
+  FramePipelineCapacity
+}
+
+pub suberror GatewayPolicyError {
+  GatewayPolicyInvalidPayload
+  GatewayPolicyDuplicateRule
+  GatewayPolicyRuleNotFound
+  GatewayPolicyInvalidInterval
+}
 
 pub suberror IsoTpError {
   InvalidFrameSize
@@ -641,6 +1110,72 @@ pub fn BitWriter::write(Self, UInt, Int) -> Unit raise BitError
 pub fn BitWriter::write_bit(Self, Bool) -> Unit
 pub fn BitWriter::write_signed(Self, Int, Int) -> Unit raise BitError
 
+pub enum BusAnalysisAnomaly {
+  BusAnomalyBurst(UInt, Int)
+  BusAnomalyJitter(UInt, UInt64)
+  BusAnomalyPayloadGrowth(UInt, Int, Int)
+  BusAnomalyIdentifierChange(UInt)
+  BusAnomalyTimestampRegression(UInt64)
+  BusAnomalySequenceGap(UInt, UInt)
+  BusAnomalyOverload(Double)
+}
+
+pub enum BusAnalysisMode {
+  BusAnalysisLive
+  BusAnalysisOffline
+  BusAnalysisReplay
+  BusAnalysisCompliance
+}
+
+pub struct BusAnalysisReport {
+  mode : BusAnalysisMode
+  channel : String
+  start_us : UInt64?
+  end_us : UInt64?
+  total_frames : Int
+  payload_bytes : Int
+  wire_bits : Int
+  profiles : Array[BusIdentifierProfile]
+  anomalies : Array[BusAnalysisAnomaly]
+  utilization : Double
+}
+pub fn BusAnalysisReport::anomalies(Self) -> Array[BusAnalysisAnomaly]
+pub fn BusAnalysisReport::channel(Self) -> String
+pub fn BusAnalysisReport::end_us(Self) -> UInt64?
+pub fn BusAnalysisReport::healthy(Self) -> Bool
+pub fn BusAnalysisReport::mode(Self) -> BusAnalysisMode
+pub fn BusAnalysisReport::payload_bytes(Self) -> Int
+pub fn BusAnalysisReport::profiles(Self) -> Array[BusIdentifierProfile]
+pub fn BusAnalysisReport::start_us(Self) -> UInt64?
+pub fn BusAnalysisReport::to_text(Self) -> String
+pub fn BusAnalysisReport::total_frames(Self) -> Int
+pub fn BusAnalysisReport::utilization(Self) -> Double
+pub fn BusAnalysisReport::wire_bits(Self) -> Int
+
+pub struct BusAnalyzer {
+  mode : BusAnalysisMode
+  channel : String
+  bitrate_kbps : UInt
+  burst_window_us : UInt64
+  jitter_limit_us : UInt64
+  observations : Array[BusObservation]
+  mut last_timestamp_us : UInt64?
+  mut last_sequence : UInt?
+}
+pub fn BusAnalyzer::anomalies(Self) -> Array[BusAnalysisAnomaly]
+pub fn BusAnalyzer::bitrate_kbps(Self) -> UInt
+pub fn BusAnalyzer::channel(Self) -> String
+pub fn BusAnalyzer::length(Self) -> Int
+pub fn BusAnalyzer::mode(Self) -> BusAnalysisMode
+pub fn BusAnalyzer::observations(Self) -> Array[BusObservation]
+pub fn BusAnalyzer::observe(Self, BusObservation) -> Unit
+pub fn BusAnalyzer::observe_frame(Self, UInt64, Frame) -> Unit
+pub fn BusAnalyzer::profile(Self, UInt) -> BusIdentifierProfile?
+pub fn BusAnalyzer::profiles(Self) -> Array[BusIdentifierProfile]
+pub fn BusAnalyzer::report(Self) -> BusAnalysisReport
+pub fn BusAnalyzer::reset(Self) -> Unit
+pub fn BusAnalyzer::sorted_observations(Self) -> Array[BusObservation]
+
 pub struct BusHealth {
   state : BusHealthState
   utilization : Double
@@ -663,10 +1198,133 @@ pub enum BusHealthState {
   Silent
 } derive(@debug.Debug)
 
+pub struct BusIdentifierProfile {
+  identifier : UInt
+  frames : Int
+  first_seen_us : UInt64
+  last_seen_us : UInt64
+  mut min_payload : Int
+  mut max_payload : Int
+  mut wire_bits : Int
+  extended : Bool
+  intervals : Array[UInt64]
+}
+pub fn BusIdentifierProfile::average_interval_us(Self) -> UInt64
+pub fn BusIdentifierProfile::extended(Self) -> Bool
+pub fn BusIdentifierProfile::first_seen_us(Self) -> UInt64
+pub fn BusIdentifierProfile::frames(Self) -> Int
+pub fn BusIdentifierProfile::frequency_hz(Self) -> Double
+pub fn BusIdentifierProfile::identifier(Self) -> UInt
+pub fn BusIdentifierProfile::intervals(Self) -> Array[UInt64]
+pub fn BusIdentifierProfile::jitter_us(Self) -> UInt64
+pub fn BusIdentifierProfile::last_seen_us(Self) -> UInt64
+pub fn BusIdentifierProfile::max_payload(Self) -> Int
+pub fn BusIdentifierProfile::min_payload(Self) -> Int
+pub fn BusIdentifierProfile::wire_bits(Self) -> Int
+
+pub struct BusObservation {
+  timestamp_us : UInt64
+  frame : Frame
+  channel : String
+  sequence : UInt
+}
+pub fn BusObservation::channel(Self) -> String
+pub fn BusObservation::frame(Self) -> Frame
+pub fn BusObservation::sequence(Self) -> UInt
+pub fn BusObservation::timestamp_us(Self) -> UInt64
+
 pub(all) enum ByteOrder {
   BigEndian
   LittleEndian
 }
+
+pub struct CanAdapterCapabilities {
+  classic : Bool
+  can_fd : Bool
+  bitrate_switch : Bool
+  listen_only : Bool
+  loopback : Bool
+  timestamping : Bool
+  max_rx_queue : Int
+  max_tx_queue : Int
+}
+pub fn CanAdapterCapabilities::bitrate_switch(Self) -> Bool
+pub fn CanAdapterCapabilities::can_fd(Self) -> Bool
+pub fn CanAdapterCapabilities::classic(Self) -> Bool
+pub fn CanAdapterCapabilities::listen_only(Self) -> Bool
+pub fn CanAdapterCapabilities::loopback(Self) -> Bool
+pub fn CanAdapterCapabilities::max_rx_queue(Self) -> Int
+pub fn CanAdapterCapabilities::max_tx_queue(Self) -> Int
+pub fn CanAdapterCapabilities::timestamping(Self) -> Bool
+
+pub struct CanAdapterConfig {
+  nominal_bitrate_kbps : UInt
+  data_bitrate_kbps : UInt
+  listen_only : Bool
+  loopback : Bool
+  receive_own : Bool
+  filter : Filter?
+}
+pub fn CanAdapterConfig::data_bitrate_kbps(Self) -> UInt
+pub fn CanAdapterConfig::filter(Self) -> Filter?
+pub fn CanAdapterConfig::listen_only(Self) -> Bool
+pub fn CanAdapterConfig::loopback(Self) -> Bool
+pub fn CanAdapterConfig::nominal_bitrate_kbps(Self) -> UInt
+pub fn CanAdapterConfig::receive_own(Self) -> Bool
+
+pub struct CanAdapterHub {
+  ports : Array[CanPort]
+  mut routed : Int
+  mut missed : Int
+}
+pub fn CanAdapterHub::add(Self, CanPort) -> Bool
+pub fn CanAdapterHub::broadcast(Self, String, UInt64, Frame) -> Int
+pub fn CanAdapterHub::find(Self, String) -> CanPort?
+pub fn CanAdapterHub::missed(Self) -> Int
+pub fn CanAdapterHub::ports(Self) -> Array[CanPort]
+pub fn CanAdapterHub::routed(Self) -> Int
+pub fn CanAdapterHub::to_text(Self) -> String
+
+pub enum CanAdapterLifecycle {
+  CanAdapterCreated
+  CanAdapterConfigured
+  CanAdapterOpen
+  CanAdapterBusOff
+  CanAdapterClosed
+}
+
+pub struct CanAdapterMessage {
+  timestamp_us : UInt64
+  frame : Frame
+  direction_tx : Bool
+  sequence : UInt
+}
+pub fn CanAdapterMessage::direction_text(Self) -> String
+pub fn CanAdapterMessage::direction_tx(Self) -> Bool
+pub fn CanAdapterMessage::frame(Self) -> Frame
+pub fn CanAdapterMessage::sequence(Self) -> UInt
+pub fn CanAdapterMessage::timestamp_us(Self) -> UInt64
+
+pub struct CanAdapterStats {
+  mut transmitted : Int
+  mut received : Int
+  mut dropped_rx : Int
+  mut rejected_tx : Int
+  mut bus_off : Int
+  mut error_frames : Int
+  mut bytes_tx : Int
+  mut bytes_rx : Int
+}
+pub fn CanAdapterStats::bus_off(Self) -> Int
+pub fn CanAdapterStats::bytes_rx(Self) -> Int
+pub fn CanAdapterStats::bytes_tx(Self) -> Int
+pub fn CanAdapterStats::dropped_rx(Self) -> Int
+pub fn CanAdapterStats::error_frames(Self) -> Int
+pub fn CanAdapterStats::received(Self) -> Int
+pub fn CanAdapterStats::rejected_tx(Self) -> Int
+pub fn CanAdapterStats::to_text(Self) -> String
+pub fn CanAdapterStats::total(Self) -> Int
+pub fn CanAdapterStats::transmitted(Self) -> Int
 
 pub struct CanBitTiming {
   clock_hz : UInt
@@ -780,6 +1438,101 @@ pub(all) enum CanOpenCobType {
   Heartbeat
 } derive(@debug.Debug)
 
+pub struct CanOpenDevice {
+  node_id : Byte
+  name : String
+  mut state : CanOpenDeviceState
+  dictionary : CanOpenObjectDictionary
+  heartbeat : CanOpenHeartbeatMonitor
+  mut nmt_commands : Int
+  mut sdo_uploads : Int
+  mut sdo_downloads : Int
+}
+pub fn CanOpenDevice::add_object(Self, CanOpenObjectEntry) -> Bool
+pub fn CanOpenDevice::dictionary(Self) -> CanOpenObjectDictionary
+pub fn CanOpenDevice::heartbeat(Self) -> CanOpenHeartbeatMonitor
+pub fn CanOpenDevice::heartbeat_receive(Self, Byte, UInt64) -> Unit
+pub fn CanOpenDevice::heartbeat_tick(Self, UInt64) -> CanOpenHeartbeatState
+pub fn CanOpenDevice::name(Self) -> String
+pub fn CanOpenDevice::nmt(Self, CanOpenNmtCommand) -> CanOpenDeviceState
+pub fn CanOpenDevice::nmt_commands(Self) -> Int
+pub fn CanOpenDevice::node_id(Self) -> Byte
+pub fn CanOpenDevice::sdo_download(Self, UInt, Byte, Array[Byte]) -> CanOpenDeviceSdoResult
+pub fn CanOpenDevice::sdo_downloads(Self) -> Int
+pub fn CanOpenDevice::sdo_upload(Self, UInt, Byte) -> CanOpenDeviceSdoResult
+pub fn CanOpenDevice::sdo_uploads(Self) -> Int
+pub fn CanOpenDevice::state(Self) -> CanOpenDeviceState
+pub fn CanOpenDevice::to_text(Self) -> String
+
+pub struct CanOpenDeviceNetwork {
+  devices : Array[CanOpenDevice]
+  mut commands : Int
+  mut unknown_nodes : Int
+}
+pub fn CanOpenDeviceNetwork::add(Self, CanOpenDevice) -> Bool
+pub fn CanOpenDeviceNetwork::broadcast_nmt(Self, CanOpenNmtCommand) -> Int
+pub fn CanOpenDeviceNetwork::commands(Self) -> Int
+pub fn CanOpenDeviceNetwork::devices(Self) -> Array[CanOpenDevice]
+pub fn CanOpenDeviceNetwork::find(Self, Byte) -> CanOpenDevice?
+pub fn CanOpenDeviceNetwork::sdo_upload(Self, Byte, UInt, Byte) -> CanOpenDeviceSdoResult
+pub fn CanOpenDeviceNetwork::unknown_nodes(Self) -> Int
+
+pub enum CanOpenDeviceSdoResult {
+  CanOpenDeviceSdoUploaded(Array[Byte])
+  CanOpenDeviceSdoDownloaded
+  CanOpenDeviceSdoAbort(UInt)
+}
+
+pub struct CanOpenDeviceSdoSession {
+  index : UInt
+  sub_index : Byte
+  upload : Bool
+  data : Array[Byte]
+  mut offset : Int
+  mut toggle : Bool
+  block_size : Int
+}
+pub fn CanOpenDeviceSdoSession::complete(Self) -> Bool
+pub fn CanOpenDeviceSdoSession::index(Self) -> UInt
+pub fn CanOpenDeviceSdoSession::next_segment(Self) -> Array[Byte]?
+pub fn CanOpenDeviceSdoSession::offset(Self) -> Int
+pub fn CanOpenDeviceSdoSession::remaining(Self) -> Int
+pub fn CanOpenDeviceSdoSession::sub_index(Self) -> Byte
+pub fn CanOpenDeviceSdoSession::toggle(Self) -> Bool
+pub fn CanOpenDeviceSdoSession::upload(Self) -> Bool
+
+pub enum CanOpenDeviceState {
+  CanOpenDeviceInitializing
+  CanOpenDevicePreOperational
+  CanOpenDeviceOperational
+  CanOpenDeviceStopped
+  CanOpenDeviceResetting
+}
+
+pub struct CanOpenHeartbeatMonitor {
+  node_id : Byte
+  timeout_us : UInt64
+  mut state : CanOpenHeartbeatState
+  mut last_seen_us : UInt64
+  mut heartbeats : Int
+  mut transitions : Int
+}
+pub fn CanOpenHeartbeatMonitor::heartbeats(Self) -> Int
+pub fn CanOpenHeartbeatMonitor::last_seen_us(Self) -> UInt64
+pub fn CanOpenHeartbeatMonitor::node_id(Self) -> Byte
+pub fn CanOpenHeartbeatMonitor::observe(Self, Byte, UInt64) -> Unit
+pub fn CanOpenHeartbeatMonitor::poll(Self, UInt64) -> CanOpenHeartbeatState
+pub fn CanOpenHeartbeatMonitor::state(Self) -> CanOpenHeartbeatState
+pub fn CanOpenHeartbeatMonitor::timeout_us(Self) -> UInt64
+pub fn CanOpenHeartbeatMonitor::transitions(Self) -> Int
+
+pub enum CanOpenHeartbeatState {
+  CanOpenHeartbeatUnknown
+  CanOpenHeartbeatAlive
+  CanOpenHeartbeatTimeout
+  CanOpenHeartbeatStopped
+}
+
 pub(all) enum CanOpenNmtCommand {
   Start
   Stop
@@ -788,6 +1541,51 @@ pub(all) enum CanOpenNmtCommand {
   ResetCommunication
 }
 
+pub enum CanOpenObjectAccess {
+  CanOpenObjectReadOnly
+  CanOpenObjectWriteOnly
+  CanOpenObjectReadWrite
+  CanOpenObjectConstant
+}
+
+pub struct CanOpenObjectDictionary {
+  entries : Array[CanOpenObjectEntry]
+  mut revision : UInt
+  capacity : Int
+}
+pub fn CanOpenObjectDictionary::add(Self, CanOpenObjectEntry) -> Bool
+pub fn CanOpenObjectDictionary::entries(Self) -> Array[CanOpenObjectEntry]
+pub fn CanOpenObjectDictionary::find(Self, UInt, Byte) -> CanOpenObjectEntry?
+pub fn CanOpenObjectDictionary::indices(Self) -> Array[UInt]
+pub fn CanOpenObjectDictionary::length(Self) -> Int
+pub fn CanOpenObjectDictionary::read(Self, UInt, Byte) -> Array[Byte]?
+pub fn CanOpenObjectDictionary::replace(Self, CanOpenObjectEntry) -> Bool
+pub fn CanOpenObjectDictionary::revision(Self) -> UInt
+pub fn CanOpenObjectDictionary::to_text(Self) -> String
+pub fn CanOpenObjectDictionary::write(Self, UInt, Byte, Array[Byte]) -> Bool
+
+pub struct CanOpenObjectEntry {
+  index : UInt
+  sub_index : Byte
+  name : String
+  access : CanOpenObjectAccess
+  mut data : Array[Byte]
+  max_length : Int
+  mut revision : UInt
+}
+pub fn CanOpenObjectEntry::access(Self) -> CanOpenObjectAccess
+pub fn CanOpenObjectEntry::data(Self) -> Array[Byte]
+pub fn CanOpenObjectEntry::index(Self) -> UInt
+pub fn CanOpenObjectEntry::max_length(Self) -> Int
+pub fn CanOpenObjectEntry::name(Self) -> String
+pub fn CanOpenObjectEntry::read(Self) -> Array[Byte]?
+pub fn CanOpenObjectEntry::readable(Self) -> Bool
+pub fn CanOpenObjectEntry::revision(Self) -> UInt
+pub fn CanOpenObjectEntry::sub_index(Self) -> Byte
+pub fn CanOpenObjectEntry::to_text(Self) -> String
+pub fn CanOpenObjectEntry::writable(Self) -> Bool
+pub fn CanOpenObjectEntry::write(Self, Array[Byte]) -> Bool
+
 pub enum CanOpenSdoCommand {
   DownloadInitiate(index~ : UInt, sub_index~ : Byte, data~ : Array[Byte])
   UploadInitiate(index~ : UInt, sub_index~ : Byte)
@@ -795,6 +1593,37 @@ pub enum CanOpenSdoCommand {
   UploadSegment(toggle~ : Bool)
   Abort(index~ : UInt, sub_index~ : Byte, code~ : UInt)
 }
+
+pub struct CanPort {
+  name : String
+  capabilities : CanAdapterCapabilities
+  mut config : CanAdapterConfig
+  mut lifecycle : CanAdapterLifecycle
+  rx_queue : Array[CanAdapterMessage]
+  tx_queue : Array[CanAdapterMessage]
+  mut sequence : UInt
+  stats : CanAdapterStats
+}
+pub fn CanPort::capabilities(Self) -> CanAdapterCapabilities
+pub fn CanPort::close(Self) -> Unit
+pub fn CanPort::completion_time_us(Self, CanAdapterMessage) -> UInt64
+pub fn CanPort::config(Self) -> CanAdapterConfig
+pub fn CanPort::configure(Self, CanAdapterConfig) -> Unit raise CanAdapterError
+pub fn CanPort::drain_rx(Self, limit? : Int) -> Array[CanAdapterMessage]
+pub fn CanPort::drain_tx(Self, limit? : Int) -> Array[CanAdapterMessage]
+pub fn CanPort::inject(Self, UInt64, Frame) -> Bool
+pub fn CanPort::is_ready(Self) -> Bool
+pub fn CanPort::lifecycle(Self) -> CanAdapterLifecycle
+pub fn CanPort::name(Self) -> String
+pub fn CanPort::open(Self) -> Unit raise CanAdapterError
+pub fn CanPort::pending_tx(Self) -> Array[CanAdapterMessage]
+pub fn CanPort::receive(Self) -> CanAdapterMessage?
+pub fn CanPort::recover(Self) -> Unit
+pub fn CanPort::rx_pending(Self) -> Int
+pub fn CanPort::set_bus_off(Self) -> Unit
+pub fn CanPort::stats(Self) -> CanAdapterStats
+pub fn CanPort::transmit(Self, UInt64, Frame) -> Unit raise CanAdapterError
+pub fn CanPort::tx_pending(Self) -> Int
 
 pub struct CanScheduler {
   tasks : Array[CanTask]
@@ -822,6 +1651,256 @@ pub struct CanTask {
   priority : Int
 }
 
+pub struct CompatibilityCandidate {
+  target : CompatibilityTarget
+  evaluation : CompatibilityEvaluation
+  rank : Int
+}
+pub fn CompatibilityCandidate::evaluation(Self) -> CompatibilityEvaluation
+pub fn CompatibilityCandidate::rank(Self) -> Int
+pub fn CompatibilityCandidate::summary(Self) -> String
+pub fn CompatibilityCandidate::target(Self) -> CompatibilityTarget
+
+pub struct CompatibilityDelta {
+  source : String
+  destination : String
+  bitrate_loss : Int
+  data_bitrate_loss : Int
+  payload_loss : Int
+  identifier_loss : Int
+  node_capacity_loss : Int
+  lost_features : Array[String]
+}
+pub fn CompatibilityDelta::bitrate_loss(Self) -> Int
+pub fn CompatibilityDelta::data_bitrate_loss(Self) -> Int
+pub fn CompatibilityDelta::destination(Self) -> String
+pub fn CompatibilityDelta::identifier_loss(Self) -> Int
+pub fn CompatibilityDelta::is_lossless(Self) -> Bool
+pub fn CompatibilityDelta::lost_features(Self) -> Array[String]
+pub fn CompatibilityDelta::node_capacity_loss(Self) -> Int
+pub fn CompatibilityDelta::payload_loss(Self) -> Int
+pub fn CompatibilityDelta::report(Self) -> String
+pub fn CompatibilityDelta::source(Self) -> String
+
+pub struct CompatibilityEvaluation {
+  target : CompatibilityTarget
+  issues : Array[CompatibilityIssue]
+  passed : Int
+  warnings : Int
+  failures : Int
+  score : Int
+}
+pub fn CompatibilityEvaluation::failures(Self) -> Int
+pub fn CompatibilityEvaluation::is_compatible(Self) -> Bool
+pub fn CompatibilityEvaluation::issue_count(Self) -> Int
+pub fn CompatibilityEvaluation::issues(Self) -> Array[CompatibilityIssue]
+pub fn CompatibilityEvaluation::passed(Self) -> Int
+pub fn CompatibilityEvaluation::report(Self) -> String
+pub fn CompatibilityEvaluation::score(Self) -> Int
+pub fn CompatibilityEvaluation::summary(Self) -> String
+pub fn CompatibilityEvaluation::target(Self) -> CompatibilityTarget
+pub fn CompatibilityEvaluation::warnings(Self) -> Int
+
+pub struct CompatibilityFleetSummary {
+  target_count : Int
+  compatible_count : Int
+  warning_count : Int
+  failure_count : Int
+  average_score : Int
+  lowest_score : Int
+  highest_score : Int
+}
+pub fn CompatibilityFleetSummary::average_score(Self) -> Int
+pub fn CompatibilityFleetSummary::compatible_count(Self) -> Int
+pub fn CompatibilityFleetSummary::failure_count(Self) -> Int
+pub fn CompatibilityFleetSummary::highest_score(Self) -> Int
+pub fn CompatibilityFleetSummary::is_release_ready(Self) -> Bool
+pub fn CompatibilityFleetSummary::lowest_score(Self) -> Int
+pub fn CompatibilityFleetSummary::target_count(Self) -> Int
+pub fn CompatibilityFleetSummary::text(Self) -> String
+pub fn CompatibilityFleetSummary::warning_count(Self) -> Int
+
+pub struct CompatibilityIssue {
+  target : String
+  code : String
+  severity : CompatibilitySeverity
+  passed : Bool
+  message : String
+  observed : String
+  expected : String
+}
+pub fn CompatibilityIssue::code(Self) -> String
+pub fn CompatibilityIssue::expected(Self) -> String
+pub fn CompatibilityIssue::message(Self) -> String
+pub fn CompatibilityIssue::observed(Self) -> String
+pub fn CompatibilityIssue::passed(Self) -> Bool
+pub fn CompatibilityIssue::severity(Self) -> CompatibilitySeverity
+pub fn CompatibilityIssue::target(Self) -> String
+pub fn CompatibilityIssue::text(Self) -> String
+
+pub struct CompatibilityMatrix {
+  name : String
+  strict : Bool
+  targets : Array[CompatibilityTarget]
+  requirements : Array[CompatibilityRequirement]
+}
+pub fn CompatibilityMatrix::add_requirement(Self, CompatibilityRequirement) -> Unit
+pub fn CompatibilityMatrix::add_target(Self, CompatibilityTarget) -> Unit
+pub fn CompatibilityMatrix::best_target(Self) -> CompatibilityTarget?
+pub fn CompatibilityMatrix::clear_requirements(Self) -> Unit
+pub fn CompatibilityMatrix::clear_targets(Self) -> Unit
+pub fn CompatibilityMatrix::compatible_targets(Self) -> Array[CompatibilityTarget]
+pub fn CompatibilityMatrix::csv(Self) -> String
+pub fn CompatibilityMatrix::evaluate(Self, CompatibilityTarget) -> CompatibilityEvaluation
+pub fn CompatibilityMatrix::evaluate_all(Self) -> Array[CompatibilityEvaluation]
+pub fn CompatibilityMatrix::fingerprint(Self) -> UInt64
+pub fn CompatibilityMatrix::fleet_summary(Self) -> CompatibilityFleetSummary
+pub fn CompatibilityMatrix::name(Self) -> String
+pub fn CompatibilityMatrix::ranked_candidates(Self) -> Array[CompatibilityCandidate]
+pub fn CompatibilityMatrix::report(Self) -> String
+pub fn CompatibilityMatrix::requirement_count(Self) -> Int
+pub fn CompatibilityMatrix::requirement_report(Self) -> String
+pub fn CompatibilityMatrix::requirements(Self) -> Array[CompatibilityRequirement]
+pub fn CompatibilityMatrix::requirements_by_severity(Self, CompatibilitySeverity) -> Array[CompatibilityRequirement]
+pub fn CompatibilityMatrix::status(Self) -> String
+pub fn CompatibilityMatrix::strict(Self) -> Bool
+pub fn CompatibilityMatrix::target_count(Self) -> Int
+pub fn CompatibilityMatrix::targets(Self) -> Array[CompatibilityTarget]
+
+pub(all) enum CompatibilityProtocol {
+  CompatibilityClassicCan
+  CompatibilityCanFd
+  CompatibilityIsoTp
+  CompatibilityUds
+  CompatibilityCanOpen
+  CompatibilityJ1939
+  CompatibilityGateway
+  CompatibilityCustom
+}
+
+pub struct CompatibilityReleaseGate {
+  name : String
+  matrices : Array[CompatibilityMatrix]
+  minimum_score : Int
+  require_all_targets : Bool
+}
+pub fn CompatibilityReleaseGate::add_matrix(Self, CompatibilityMatrix) -> Unit
+pub fn CompatibilityReleaseGate::matrix_count(Self) -> Int
+pub fn CompatibilityReleaseGate::minimum_score(Self) -> Int
+pub fn CompatibilityReleaseGate::ready(Self) -> Bool
+pub fn CompatibilityReleaseGate::report(Self) -> String
+pub fn CompatibilityReleaseGate::require_all_targets(Self) -> Bool
+
+pub struct CompatibilityRequirement {
+  code : String
+  description : String
+  kind : CompatibilityRequirementKind
+  mut numeric_value : Int
+  mut protocol_value : CompatibilityProtocol?
+  mut feature_value : String?
+  severity : CompatibilitySeverity
+}
+pub fn CompatibilityRequirement::code(Self) -> String
+pub fn CompatibilityRequirement::description(Self) -> String
+pub fn CompatibilityRequirement::feature_value(Self) -> String?
+pub fn CompatibilityRequirement::kind(Self) -> CompatibilityRequirementKind
+pub fn CompatibilityRequirement::numeric_value(Self) -> Int
+pub fn CompatibilityRequirement::protocol_value(Self) -> CompatibilityProtocol?
+pub fn CompatibilityRequirement::severity(Self) -> CompatibilitySeverity
+
+pub(all) enum CompatibilityRequirementKind {
+  CompatibilityMinimumBitrate
+  CompatibilityMinimumDataBitrate
+  CompatibilityMinimumPayload
+  CompatibilityMinimumIdentifierBits
+  CompatibilityMinimumNodeCapacity
+  CompatibilityProtocolIs
+  CompatibilityRequiresFeature
+  CompatibilityForbidsFeature
+  CompatibilityRequiresFd
+  CompatibilityRequiresClassic
+  CompatibilityRequiresIsoTp
+  CompatibilityRequiresDiagnostics
+}
+
+pub struct CompatibilityRoute {
+  source : CompatibilityTarget
+  destination : CompatibilityTarget
+  transport : CompatibilityProtocol
+  max_payload : Int
+  uses_segmentation : Bool
+  valid : Bool
+  reason : String
+}
+pub fn CompatibilityRoute::destination(Self) -> CompatibilityTarget
+pub fn CompatibilityRoute::max_payload(Self) -> Int
+pub fn CompatibilityRoute::reason(Self) -> String
+pub fn CompatibilityRoute::source(Self) -> CompatibilityTarget
+pub fn CompatibilityRoute::summary(Self) -> String
+pub fn CompatibilityRoute::transport(Self) -> CompatibilityProtocol
+pub fn CompatibilityRoute::uses_segmentation(Self) -> Bool
+pub fn CompatibilityRoute::valid(Self) -> Bool
+
+pub struct CompatibilityRouteTable {
+  routes : Array[CompatibilityRoute]
+}
+pub fn CompatibilityRouteTable::add(Self, CompatibilityRoute) -> Unit
+pub fn CompatibilityRouteTable::invalid_routes(Self) -> Array[CompatibilityRoute]
+pub fn CompatibilityRouteTable::report(Self) -> String
+pub fn CompatibilityRouteTable::routes(Self) -> Array[CompatibilityRoute]
+pub fn CompatibilityRouteTable::valid_routes(Self) -> Array[CompatibilityRoute]
+
+pub(all) enum CompatibilitySeverity {
+  CompatibilityInfo
+  CompatibilityWarning
+  CompatibilityError
+}
+
+pub struct CompatibilityTarget {
+  name : String
+  protocol : CompatibilityProtocol
+  nominal_bitrate : Int
+  data_bitrate : Int
+  max_payload : Int
+  identifier_bits : Int
+  node_capacity : Int
+  features : Array[String]
+  notes : String
+}
+pub fn CompatibilityTarget::data_bitrate(Self) -> Int
+pub fn CompatibilityTarget::feature_count(Self) -> Int
+pub fn CompatibilityTarget::feature_csv(Self) -> String
+pub fn CompatibilityTarget::features(Self) -> Array[String]
+pub fn CompatibilityTarget::has_feature(Self, String) -> Bool
+pub fn CompatibilityTarget::identifier_bits(Self) -> Int
+pub fn CompatibilityTarget::max_payload(Self) -> Int
+pub fn CompatibilityTarget::name(Self) -> String
+pub fn CompatibilityTarget::node_capacity(Self) -> Int
+pub fn CompatibilityTarget::nominal_bitrate(Self) -> Int
+pub fn CompatibilityTarget::notes(Self) -> String
+pub fn CompatibilityTarget::protocol(Self) -> CompatibilityProtocol
+pub fn CompatibilityTarget::summary(Self) -> String
+
+pub struct DbcCodegenOptions {
+  target : DbcCodegenTarget
+  module_name : String
+  include_comments : Bool
+  include_validation : Bool
+  line_ending : String
+}
+pub fn DbcCodegenOptions::include_comments(Self) -> Bool
+pub fn DbcCodegenOptions::include_validation(Self) -> Bool
+pub fn DbcCodegenOptions::line_ending(Self) -> String
+pub fn DbcCodegenOptions::module_name(Self) -> String
+pub fn DbcCodegenOptions::target(Self) -> DbcCodegenTarget
+
+pub enum DbcCodegenTarget {
+  DbcCodegenMoonBit
+  DbcCodegenCHeader
+  DbcCodegenJsonSchema
+  DbcCodegenMarkdown
+}
+
 pub struct DbcDatabase {
   messages : Array[Message]
 }
@@ -832,6 +1911,23 @@ pub fn DbcDatabase::decode_frame(Self, Frame) -> DecodedMessage? raise DbcRuntim
 pub fn DbcDatabase::ids(Self) -> Array[UInt]
 pub fn DbcDatabase::length(Self) -> Int
 pub fn DbcDatabase::messages(Self) -> Array[Message]
+
+pub struct DbcGeneratedArtifact {
+  path : String
+  target : DbcCodegenTarget
+  content : String
+  line_count : Int
+  message_count : Int
+  signal_count : Int
+  warnings : Array[String]
+}
+pub fn DbcGeneratedArtifact::content(Self) -> String
+pub fn DbcGeneratedArtifact::line_count(Self) -> Int
+pub fn DbcGeneratedArtifact::message_count(Self) -> Int
+pub fn DbcGeneratedArtifact::path(Self) -> String
+pub fn DbcGeneratedArtifact::signal_count(Self) -> Int
+pub fn DbcGeneratedArtifact::target(Self) -> DbcCodegenTarget
+pub fn DbcGeneratedArtifact::warnings(Self) -> Array[String]
 
 pub struct DbcParseReport {
   messages : Array[Message]
@@ -865,6 +1961,108 @@ pub fn DbcSchemaReport::message_count(Self) -> Int
 pub fn DbcSchemaReport::signal_count(Self) -> Int
 pub fn DbcSchemaReport::unique_identifier_count(Self) -> Int
 
+pub struct DbcWorkspace {
+  messages : Array[Message]
+  groups : Array[DbcWorkspaceSignalGroup]
+  bindings : Array[DbcWorkspaceBinding]
+  mut revision : UInt
+  mut encoded_frames : Int
+  mut decoded_frames : Int
+}
+pub fn DbcWorkspace::add_binding(Self, DbcWorkspaceBinding) -> Bool
+pub fn DbcWorkspace::add_group(Self, DbcWorkspaceSignalGroup) -> Bool
+pub fn DbcWorkspace::add_message(Self, Message) -> Bool
+pub fn DbcWorkspace::bindings(Self) -> Array[DbcWorkspaceBinding]
+pub fn DbcWorkspace::by_id(Self, UInt) -> Message?
+pub fn DbcWorkspace::by_name(Self, String) -> Message?
+pub fn DbcWorkspace::decode(Self, Frame) -> DecodedMessage? raise DbcRuntimeError
+pub fn DbcWorkspace::decoded_frames(Self) -> Int
+pub fn DbcWorkspace::encode(Self, String, DbcWorkspaceValueSet) -> Frame raise DbcRuntimeError
+pub fn DbcWorkspace::encoded_frames(Self) -> Int
+pub fn DbcWorkspace::find_binding(Self, String) -> DbcWorkspaceBinding?
+pub fn DbcWorkspace::find_group(Self, String) -> DbcWorkspaceSignalGroup?
+pub fn DbcWorkspace::fingerprint(Self) -> UInt
+pub fn DbcWorkspace::groups(Self) -> Array[DbcWorkspaceSignalGroup]
+pub fn DbcWorkspace::ids(Self) -> Array[UInt]
+pub fn DbcWorkspace::messages(Self) -> Array[Message]
+pub fn DbcWorkspace::replace_message(Self, Message) -> Bool
+pub fn DbcWorkspace::revision(Self) -> UInt
+pub fn DbcWorkspace::schema_text(Self) -> String
+pub fn DbcWorkspace::validate(Self) -> Array[DbcWorkspaceIssue]
+
+pub struct DbcWorkspaceBinding {
+  name : String
+  message : Message
+  selector : DbcWorkspaceMuxSelector
+  extended : Bool
+  mut default_values : DbcWorkspaceValueSet
+  mut encoded : Int
+  mut decoded : Int
+}
+pub fn DbcWorkspaceBinding::decode(Self, Frame) -> DecodedMessage raise DbcRuntimeError
+pub fn DbcWorkspaceBinding::decoded(Self) -> Int
+pub fn DbcWorkspaceBinding::defaults(Self) -> DbcWorkspaceValueSet
+pub fn DbcWorkspaceBinding::encode(Self, DbcWorkspaceValueSet) -> Frame raise DbcRuntimeError
+pub fn DbcWorkspaceBinding::encoded(Self) -> Int
+pub fn DbcWorkspaceBinding::extended(Self) -> Bool
+pub fn DbcWorkspaceBinding::matches_mux(Self, UInt) -> Bool
+pub fn DbcWorkspaceBinding::message(Self) -> Message
+pub fn DbcWorkspaceBinding::name(Self) -> String
+pub fn DbcWorkspaceBinding::selector(Self) -> DbcWorkspaceMuxSelector
+pub fn DbcWorkspaceBinding::set_default(Self, DbcWorkspaceValueSet) -> Unit
+
+pub enum DbcWorkspaceIssue {
+  DbcWorkspaceDuplicateId(UInt)
+  DbcWorkspaceDuplicateName(String)
+  DbcWorkspaceInvalidMessage(String)
+  DbcWorkspaceMissingBinding(UInt)
+  DbcWorkspaceEmptyGroup(String)
+  DbcWorkspaceMuxConflict(String)
+}
+
+pub enum DbcWorkspaceMuxSelector {
+  DbcWorkspaceMuxNone
+  DbcWorkspaceMuxValue(UInt)
+  DbcWorkspaceMuxRange(UInt, UInt)
+}
+
+pub struct DbcWorkspaceSignalGroup {
+  name : String
+  message_id : UInt
+  signals : Array[Signal]
+  mut active : Bool
+}
+pub fn DbcWorkspaceSignalGroup::active(Self) -> Bool
+pub fn DbcWorkspaceSignalGroup::add_signal(Self, Signal) -> Bool
+pub fn DbcWorkspaceSignalGroup::contains(Self, String) -> Bool
+pub fn DbcWorkspaceSignalGroup::find(Self, String) -> Signal?
+pub fn DbcWorkspaceSignalGroup::length(Self) -> Int
+pub fn DbcWorkspaceSignalGroup::message_id(Self) -> UInt
+pub fn DbcWorkspaceSignalGroup::name(Self) -> String
+pub fn DbcWorkspaceSignalGroup::set_active(Self, Bool) -> Unit
+pub fn DbcWorkspaceSignalGroup::signals(Self) -> Array[Signal]
+
+pub struct DbcWorkspaceValue {
+  name : String
+  value : Double
+}
+pub fn DbcWorkspaceValue::name(Self) -> String
+pub fn DbcWorkspaceValue::value(Self) -> Double
+
+pub struct DbcWorkspaceValueSet {
+  values : Array[DbcWorkspaceValue]
+  mut revision : UInt
+}
+pub fn DbcWorkspaceValueSet::contains(Self, String) -> Bool
+pub fn DbcWorkspaceValueSet::find(Self, String) -> DbcWorkspaceValue?
+pub fn DbcWorkspaceValueSet::names(Self) -> Array[String]
+pub fn DbcWorkspaceValueSet::put(Self, DbcWorkspaceValue) -> Unit
+pub fn DbcWorkspaceValueSet::put_number(Self, String, Double) -> Unit
+pub fn DbcWorkspaceValueSet::remove(Self, String) -> Bool
+pub fn DbcWorkspaceValueSet::revision(Self) -> UInt
+pub fn DbcWorkspaceValueSet::to_map(Self) -> Map[String, Double]
+pub fn DbcWorkspaceValueSet::values(Self) -> Array[DbcWorkspaceValue]
+
 pub struct DecodedMessage {
   id : UInt
   name : String
@@ -887,6 +2085,87 @@ pub fn DecodedSignal::physical(Self) -> Double
 pub fn DecodedSignal::raw(Self) -> UInt
 pub fn DecodedSignal::unit(Self) -> String
 
+pub enum DiagnosticAddressingMode {
+  NormalAddressing
+  ExtendedAddressing
+  MixedAddressing(Byte)
+}
+
+pub struct DiagnosticDataIdentifier {
+  identifier : UInt
+  name : String
+  length : Int
+  readable : Bool
+  writable : Bool
+  mut value : Array[Byte]
+}
+pub fn DiagnosticDataIdentifier::identifier(Self) -> UInt
+pub fn DiagnosticDataIdentifier::length(Self) -> Int
+pub fn DiagnosticDataIdentifier::name(Self) -> String
+pub fn DiagnosticDataIdentifier::read_value(Self) -> Array[Byte]
+pub fn DiagnosticDataIdentifier::readable(Self) -> Bool
+pub fn DiagnosticDataIdentifier::set_value(Self, Array[Byte]) -> Bool
+pub fn DiagnosticDataIdentifier::value(Self) -> Array[Byte]
+pub fn DiagnosticDataIdentifier::writable(Self) -> Bool
+
+pub struct DiagnosticDataTable {
+  entries : Array[DiagnosticDataIdentifier]
+  mut revision : UInt
+}
+pub fn DiagnosticDataTable::add(Self, DiagnosticDataIdentifier) -> Bool
+pub fn DiagnosticDataTable::entries(Self) -> Array[DiagnosticDataIdentifier]
+pub fn DiagnosticDataTable::find(Self, UInt) -> DiagnosticDataIdentifier?
+pub fn DiagnosticDataTable::identifiers(Self) -> Array[UInt]
+pub fn DiagnosticDataTable::length(Self) -> Int
+pub fn DiagnosticDataTable::read(Self, UInt) -> Array[Byte]?
+pub fn DiagnosticDataTable::replace(Self, DiagnosticDataIdentifier) -> Bool
+pub fn DiagnosticDataTable::revision(Self) -> UInt
+pub fn DiagnosticDataTable::to_text(Self) -> String
+pub fn DiagnosticDataTable::write(Self, UInt, Array[Byte]) -> Bool
+
+pub struct DiagnosticEvent {
+  timestamp_us : UInt64
+  request : DiagnosticRequest
+  response : Array[Byte]
+  positive : Bool
+  duration_us : UInt64
+}
+pub fn DiagnosticEvent::duration_us(Self) -> UInt64
+pub fn DiagnosticEvent::positive(Self) -> Bool
+pub fn DiagnosticEvent::request(Self) -> DiagnosticRequest
+pub fn DiagnosticEvent::response(Self) -> Array[Byte]
+pub fn DiagnosticEvent::timestamp_us(Self) -> UInt64
+
+pub struct DiagnosticExchangeLog {
+  events : Array[DiagnosticEvent]
+  mut positive_count : Int
+  mut negative_count : Int
+}
+pub fn DiagnosticExchangeLog::average_duration_us(Self) -> UInt64
+pub fn DiagnosticExchangeLog::events(Self) -> Array[DiagnosticEvent]
+pub fn DiagnosticExchangeLog::failed_services(Self) -> Array[String]
+pub fn DiagnosticExchangeLog::length(Self) -> Int
+pub fn DiagnosticExchangeLog::negative_count(Self) -> Int
+pub fn DiagnosticExchangeLog::positive_count(Self) -> Int
+pub fn DiagnosticExchangeLog::record(Self, DiagnosticEvent) -> Unit
+pub fn DiagnosticExchangeLog::to_text(Self) -> String
+
+pub struct DiagnosticReadiness {
+  session_ok : Bool
+  security_ok : Bool
+  voltage_ok : Bool
+  temperature_ok : Bool
+  dtc_ok : Bool
+  reasons : Array[String]
+}
+pub fn DiagnosticReadiness::dtc_ok(Self) -> Bool
+pub fn DiagnosticReadiness::ready(Self) -> Bool
+pub fn DiagnosticReadiness::reasons(Self) -> Array[String]
+pub fn DiagnosticReadiness::security_ok(Self) -> Bool
+pub fn DiagnosticReadiness::session_ok(Self) -> Bool
+pub fn DiagnosticReadiness::temperature_ok(Self) -> Bool
+pub fn DiagnosticReadiness::voltage_ok(Self) -> Bool
+
 pub struct DiagnosticRequest {
   service : UdsService
   payload : Array[Byte]
@@ -901,6 +2180,170 @@ pub enum DiagnosticResponse {
   Positive(Array[Byte])
   Negative(code~ : Byte)
   Malformed
+}
+
+pub struct DiagnosticRetryPolicy {
+  max_attempts : Int
+  backoff_us : UInt64
+  retry_negative : Bool
+  mut attempts : Int
+}
+pub fn DiagnosticRetryPolicy::attempts(Self) -> Int
+pub fn DiagnosticRetryPolicy::backoff_us(Self) -> UInt64
+pub fn DiagnosticRetryPolicy::begin_attempt(Self) -> Bool
+pub fn DiagnosticRetryPolicy::can_retry(Self) -> Bool
+pub fn DiagnosticRetryPolicy::max_attempts(Self) -> Int
+pub fn DiagnosticRetryPolicy::reset(Self) -> Unit
+pub fn DiagnosticRetryPolicy::retry_negative(Self) -> Bool
+
+pub enum DiagnosticSessionKind {
+  DefaultSession
+  ProgrammingSession
+  ExtendedSession
+  SafetySystemSession
+  SupplierSession(Byte)
+}
+
+pub struct DiagnosticSessionProfile {
+  kind : DiagnosticSessionKind
+  p2_server_us : UInt64
+  p2_star_server_us : UInt64
+  s3_server_us : UInt64
+  addressing : DiagnosticAddressingMode
+  security_level : Byte
+}
+pub fn DiagnosticSessionProfile::addressing(Self) -> DiagnosticAddressingMode
+pub fn DiagnosticSessionProfile::kind(Self) -> DiagnosticSessionKind
+pub fn DiagnosticSessionProfile::p2_server_us(Self) -> UInt64
+pub fn DiagnosticSessionProfile::p2_star_server_us(Self) -> UInt64
+pub fn DiagnosticSessionProfile::s3_server_us(Self) -> UInt64
+pub fn DiagnosticSessionProfile::security_level(Self) -> Byte
+
+pub struct DiagnosticTroubleCode {
+  code : UInt
+  mut status : Byte
+  severity : Byte
+  mut occurrence_count : Int
+  mut snapshot : Array[Byte]
+  mut extended_data : Array[Byte]
+  mut last_seen_us : UInt64
+}
+pub fn DiagnosticTroubleCode::code(Self) -> UInt
+pub fn DiagnosticTroubleCode::extended_data(Self) -> Array[Byte]
+pub fn DiagnosticTroubleCode::has_status(Self, DtcStatusBit) -> Bool
+pub fn DiagnosticTroubleCode::last_seen_us(Self) -> UInt64
+pub fn DiagnosticTroubleCode::observe(Self, Byte, UInt64) -> Unit
+pub fn DiagnosticTroubleCode::occurrence_count(Self) -> Int
+pub fn DiagnosticTroubleCode::set_extended_data(Self, Array[Byte]) -> Unit
+pub fn DiagnosticTroubleCode::set_snapshot(Self, Array[Byte]) -> Unit
+pub fn DiagnosticTroubleCode::severity(Self) -> Byte
+pub fn DiagnosticTroubleCode::snapshot(Self) -> Array[Byte]
+pub fn DiagnosticTroubleCode::status(Self) -> Byte
+pub fn DiagnosticTroubleCode::status_text(Self) -> String
+pub fn DiagnosticTroubleCode::to_bytes(Self) -> Array[Byte]
+
+pub struct DiagnosticTroubleCodeStore {
+  capacity : Int
+  records : Array[DiagnosticTroubleCode]
+  mut generation : UInt
+  mut cleared_at_us : UInt64
+}
+pub fn DiagnosticTroubleCodeStore::capacity(Self) -> Int
+pub fn DiagnosticTroubleCodeStore::clear(Self, UInt64) -> Unit
+pub fn DiagnosticTroubleCodeStore::cleared_at_us(Self) -> UInt64
+pub fn DiagnosticTroubleCodeStore::codes(Self) -> Array[UInt]
+pub fn DiagnosticTroubleCodeStore::encode_report(Self, DtcQuery, limit? : Int) -> Array[Byte]
+pub fn DiagnosticTroubleCodeStore::find(Self, UInt) -> DiagnosticTroubleCode?
+pub fn DiagnosticTroubleCodeStore::generation(Self) -> UInt
+pub fn DiagnosticTroubleCodeStore::length(Self) -> Int
+pub fn DiagnosticTroubleCodeStore::mark_cycle_start(Self) -> Unit
+pub fn DiagnosticTroubleCodeStore::query(Self, DtcQuery) -> Array[DiagnosticTroubleCode]
+pub fn DiagnosticTroubleCodeStore::record(Self, DiagnosticTroubleCode) -> Unit
+pub fn DiagnosticTroubleCodeStore::records(Self) -> Array[DiagnosticTroubleCode]
+pub fn DiagnosticTroubleCodeStore::remove(Self, UInt) -> Bool
+
+pub struct DiagnosticWorkflow {
+  steps : Array[DiagnosticWorkflowStep]
+  results : Array[DiagnosticWorkflowResult]
+  mut cursor : Int
+  mut state : DiagnosticWorkflowState
+  mut started_us : UInt64
+  mut last_timestamp_us : UInt64
+  mut failures : Int
+}
+pub fn DiagnosticWorkflow::accept_current(Self, Array[Byte], UInt64) -> Bool
+pub fn DiagnosticWorkflow::add(Self, DiagnosticWorkflowStep) -> Bool
+pub fn DiagnosticWorkflow::begin_current(Self, UInt64) -> Bool
+pub fn DiagnosticWorkflow::cancel(Self) -> Unit
+pub fn DiagnosticWorkflow::continue_after_wait(Self) -> Bool
+pub fn DiagnosticWorkflow::current(Self) -> DiagnosticWorkflowStep?
+pub fn DiagnosticWorkflow::cursor(Self) -> Int
+pub fn DiagnosticWorkflow::failures(Self) -> Int
+pub fn DiagnosticWorkflow::last_timestamp_us(Self) -> UInt64
+pub fn DiagnosticWorkflow::length(Self) -> Int
+pub fn DiagnosticWorkflow::poll_timeout(Self, UInt64) -> Bool
+pub fn DiagnosticWorkflow::progress_percent(Self) -> Int
+pub fn DiagnosticWorkflow::reset(Self) -> Unit
+pub fn DiagnosticWorkflow::results(Self) -> Array[DiagnosticWorkflowResult]
+pub fn DiagnosticWorkflow::start(Self, UInt64) -> Bool
+pub fn DiagnosticWorkflow::started_us(Self) -> UInt64
+pub fn DiagnosticWorkflow::state(Self) -> DiagnosticWorkflowState
+pub fn DiagnosticWorkflow::successful(Self) -> Bool
+pub fn DiagnosticWorkflow::to_text(Self) -> String
+
+pub struct DiagnosticWorkflowResult {
+  step_name : String
+  service : String
+  positive : Bool
+  attempts : Int
+  duration_us : UInt64
+  response : DiagnosticResponse
+}
+pub fn DiagnosticWorkflowResult::attempts(Self) -> Int
+pub fn DiagnosticWorkflowResult::duration_us(Self) -> UInt64
+pub fn DiagnosticWorkflowResult::positive(Self) -> Bool
+pub fn DiagnosticWorkflowResult::response(Self) -> DiagnosticResponse
+pub fn DiagnosticWorkflowResult::service(Self) -> String
+pub fn DiagnosticWorkflowResult::step_name(Self) -> String
+
+pub enum DiagnosticWorkflowState {
+  DiagnosticWorkflowIdle
+  DiagnosticWorkflowRunning
+  DiagnosticWorkflowWaiting
+  DiagnosticWorkflowSucceeded
+  DiagnosticWorkflowFailed
+  DiagnosticWorkflowCancelled
+}
+
+pub struct DiagnosticWorkflowStep {
+  name : String
+  request : DiagnosticRequest
+  timeout_us : UInt64
+  retry : DiagnosticRetryPolicy
+  mut sent_at_us : UInt64?
+  mut completed : Bool
+  mut result : DiagnosticResponse?
+}
+pub fn DiagnosticWorkflowStep::accept(Self, Array[Byte]) -> Bool
+pub fn DiagnosticWorkflowStep::begin(Self, UInt64) -> Bool
+pub fn DiagnosticWorkflowStep::clear_attempt(Self) -> Unit
+pub fn DiagnosticWorkflowStep::completed(Self) -> Bool
+pub fn DiagnosticWorkflowStep::name(Self) -> String
+pub fn DiagnosticWorkflowStep::request(Self) -> DiagnosticRequest
+pub fn DiagnosticWorkflowStep::result(Self) -> DiagnosticResponse?
+pub fn DiagnosticWorkflowStep::retry(Self) -> DiagnosticRetryPolicy
+pub fn DiagnosticWorkflowStep::sent_at_us(Self) -> UInt64?
+pub fn DiagnosticWorkflowStep::timed_out(Self, UInt64) -> Bool
+pub fn DiagnosticWorkflowStep::timeout_us(Self) -> UInt64
+
+pub enum DtcQuery {
+  AllDtc
+  ByCode(UInt)
+  ByStatusMask(Byte)
+  BySeverityAtLeast(Byte)
+  ConfirmedOnly
+  WarningOnly
+  SeenAfter(UInt64)
 }
 
 pub struct DtcRecord {
@@ -923,6 +2366,17 @@ pub fn DtcReport::records(Self) -> Array[DtcRecord]
 pub fn DtcReport::status_availability_mask(Self) -> Byte
 pub fn DtcReport::subfunction(Self) -> Byte
 
+pub enum DtcStatusBit {
+  TestFailed
+  TestFailedThisOperationCycle
+  PendingDtc
+  ConfirmedDtc
+  TestNotCompletedSinceClear
+  TestFailedSinceClear
+  TestNotCompletedThisOperationCycle
+  WarningIndicatorRequested
+}
+
 pub struct DtcStore {
   capacity : Int
   records : Array[DtcRecord]
@@ -936,6 +2390,129 @@ pub fn DtcStore::remove(Self, UInt) -> Bool
 pub fn DtcStore::snapshot(Self) -> Array[DtcRecord]
 pub fn DtcStore::updates(Self) -> UInt
 pub fn DtcStore::upsert(Self, DtcRecord) -> Unit raise DtcCodecError
+
+pub struct EcuEndpoint {
+  address : UInt
+  name : String
+  mut session : DiagnosticSessionProfile
+  data : DiagnosticDataTable
+  dtcs : DiagnosticTroubleCodeStore
+  memory : EcuMemoryMap
+  security : EcuSecurityPolicy
+  mut reset_count : Int
+  mut request_count : Int
+  mut positive_count : Int
+  mut negative_count : Int
+  mut last_timestamp_us : UInt64
+  mut pending_reset : EcuResetKind?
+}
+pub fn EcuEndpoint::address(Self) -> UInt
+pub fn EcuEndpoint::clear_dtcs(Self, UInt64) -> Unit
+pub fn EcuEndpoint::data(Self) -> DiagnosticDataTable
+pub fn EcuEndpoint::dtcs(Self) -> DiagnosticTroubleCodeStore
+pub fn EcuEndpoint::handle(Self, DiagnosticRequest, UInt64) -> EcuRequestOutcome
+pub fn EcuEndpoint::memory(Self) -> EcuMemoryMap
+pub fn EcuEndpoint::name(Self) -> String
+pub fn EcuEndpoint::negative_count(Self) -> Int
+pub fn EcuEndpoint::pending_reset(Self) -> EcuResetKind?
+pub fn EcuEndpoint::positive_count(Self) -> Int
+pub fn EcuEndpoint::record_dtc(Self, DiagnosticTroubleCode) -> Unit
+pub fn EcuEndpoint::register_data(Self, DiagnosticDataIdentifier) -> Bool
+pub fn EcuEndpoint::register_memory(Self, EcuMemoryRegion) -> Bool
+pub fn EcuEndpoint::request_count(Self) -> Int
+pub fn EcuEndpoint::reset_count(Self) -> Int
+pub fn EcuEndpoint::security(Self) -> EcuSecurityPolicy
+pub fn EcuEndpoint::session(Self) -> DiagnosticSessionProfile
+pub fn EcuEndpoint::to_text(Self) -> String
+
+pub struct EcuFleet {
+  endpoints : Array[EcuEndpoint]
+  mut routed : Int
+  mut missed : Int
+}
+pub fn EcuFleet::add(Self, EcuEndpoint) -> Bool
+pub fn EcuFleet::endpoints(Self) -> Array[EcuEndpoint]
+pub fn EcuFleet::find(Self, UInt) -> EcuEndpoint?
+pub fn EcuFleet::handle(Self, UInt, DiagnosticRequest, UInt64) -> EcuRequestOutcome
+pub fn EcuFleet::length(Self) -> Int
+pub fn EcuFleet::missed(Self) -> Int
+pub fn EcuFleet::remove(Self, UInt) -> Bool
+pub fn EcuFleet::routed(Self) -> Int
+pub fn EcuFleet::to_text(Self) -> String
+
+pub struct EcuMemoryMap {
+  regions : Array[EcuMemoryRegion]
+  mut reads : Int
+  mut writes : Int
+}
+pub fn EcuMemoryMap::add(Self, EcuMemoryRegion) -> Unit raise EcuMemoryError
+pub fn EcuMemoryMap::find(Self, UInt, Int) -> EcuMemoryRegion?
+pub fn EcuMemoryMap::length(Self) -> Int
+pub fn EcuMemoryMap::read(Self, UInt, Int) -> Array[Byte] raise EcuMemoryError
+pub fn EcuMemoryMap::reads(Self) -> Int
+pub fn EcuMemoryMap::regions(Self) -> Array[EcuMemoryRegion]
+pub fn EcuMemoryMap::write(Self, UInt, Array[Byte]) -> Unit raise EcuMemoryError
+pub fn EcuMemoryMap::writes(Self) -> Int
+
+pub enum EcuMemoryPermission {
+  EcuMemoryReadable
+  EcuMemoryWritable
+  EcuMemoryReadWrite
+  EcuMemoryLocked
+}
+
+pub struct EcuMemoryRegion {
+  start : UInt
+  length : Int
+  permission : EcuMemoryPermission
+  bytes : Array[Byte]
+}
+pub fn EcuMemoryRegion::bytes(Self) -> Array[Byte]
+pub fn EcuMemoryRegion::contains(Self, UInt, Int) -> Bool
+pub fn EcuMemoryRegion::fill(Self, Byte) -> Unit raise EcuMemoryError
+pub fn EcuMemoryRegion::length(Self) -> Int
+pub fn EcuMemoryRegion::permission(Self) -> EcuMemoryPermission
+pub fn EcuMemoryRegion::read(Self, UInt, Int) -> Array[Byte] raise EcuMemoryError
+pub fn EcuMemoryRegion::start(Self) -> UInt
+pub fn EcuMemoryRegion::write(Self, UInt, Array[Byte]) -> Unit raise EcuMemoryError
+
+pub enum EcuRequestOutcome {
+  EcuPositiveResponse(Array[Byte])
+  EcuNegativeResponse(Byte)
+  EcuRequestRejected(String)
+}
+
+pub enum EcuResetKind {
+  EcuHardReset
+  EcuKeyOffOnReset
+  EcuSoftReset
+  EcuResetBySupplier(Byte)
+}
+
+pub struct EcuSecurityPolicy {
+  level : Byte
+  secret : UInt
+  max_attempts : Int
+  delay_us : UInt64
+  mut attempts : Int
+  mut state : EcuSecurityState
+  mut seed_counter : UInt
+}
+pub fn EcuSecurityPolicy::attempts(Self) -> Int
+pub fn EcuSecurityPolicy::expected_key(Self, UInt) -> UInt
+pub fn EcuSecurityPolicy::is_unlocked(Self) -> Bool
+pub fn EcuSecurityPolicy::issue_seed(Self, UInt64) -> UInt
+pub fn EcuSecurityPolicy::level(Self) -> Byte
+pub fn EcuSecurityPolicy::lock(Self) -> Unit
+pub fn EcuSecurityPolicy::state(Self) -> EcuSecurityState
+pub fn EcuSecurityPolicy::unlock(Self, UInt, UInt, UInt64) -> Bool
+
+pub enum EcuSecurityState {
+  EcuSecurityLocked
+  EcuSecuritySeedIssued(Byte)
+  EcuSecurityUnlocked(Byte)
+  EcuSecurityDelay(UInt64)
+}
 
 pub struct Filter {
   id : UInt
@@ -1019,6 +2596,17 @@ pub enum FrameClass {
   SimulationError
 }
 
+pub struct FrameDeduplicator {
+  last : Array[(UInt, Array[Byte])]
+  window_us : UInt64
+  mut duplicates : Int
+  mut unique : Int
+}
+pub fn FrameDeduplicator::accept(Self, UInt64, Frame) -> Bool
+pub fn FrameDeduplicator::duplicates(Self) -> Int
+pub fn FrameDeduplicator::reset(Self) -> Unit
+pub fn FrameDeduplicator::unique(Self) -> Int
+
 pub enum FrameKind {
   Data
   Remote
@@ -1053,6 +2641,77 @@ pub fn FrameMetrics::to_text(Self) -> String
 pub fn FrameMetrics::total(Self) -> Int
 pub fn FrameMetrics::wire_bits(Self) -> Int
 
+pub struct FramePipeline {
+  rules : Array[FramePipelineRule]
+  capacity : Int
+  mut processed : Int
+  mut accepted : Int
+  mut rejected : Int
+  mut unmatched : Int
+  mut failures : Int
+}
+pub fn FramePipeline::accepted(Self) -> Int
+pub fn FramePipeline::add_rule(Self, FramePipelineRule) -> Unit raise FramePipelineError
+pub fn FramePipeline::failures(Self) -> Int
+pub fn FramePipeline::find(Self, String) -> FramePipelineRule?
+pub fn FramePipeline::process(Self, Frame) -> FramePipelineResult
+pub fn FramePipeline::process_batch(Self, Array[Frame]) -> Array[Frame]
+pub fn FramePipeline::processed(Self) -> Int
+pub fn FramePipeline::rejected(Self) -> Int
+pub fn FramePipeline::remove_rule(Self, String) -> Unit raise FramePipelineError
+pub fn FramePipeline::reset_counters(Self) -> Unit
+pub fn FramePipeline::rules(Self) -> Array[FramePipelineRule]
+pub fn FramePipeline::to_text(Self) -> String
+pub fn FramePipeline::unmatched(Self) -> Int
+
+pub(all) enum FramePipelineAction {
+  FramePipelineForward
+  FramePipelineDrop(String)
+  FramePipelineRewriteId(UInt)
+  FramePipelinePrefix(Array[Byte])
+  FramePipelineReplaceData(Array[Byte])
+}
+
+pub(all) enum FramePipelineResult {
+  FramePipelineAccepted(Frame, String)
+  FramePipelineRejected(String)
+  FramePipelineUnmatched(Frame)
+}
+
+pub struct FramePipelineRule {
+  name : String
+  filter : Filter
+  action : FramePipelineAction
+  max_payload : Int
+  allow_fd : Bool
+  mut enabled : Bool
+  mut hits : Int
+}
+pub fn FramePipelineRule::action(Self) -> FramePipelineAction
+pub fn FramePipelineRule::allow_fd(Self) -> Bool
+pub fn FramePipelineRule::enabled(Self) -> Bool
+pub fn FramePipelineRule::filter(Self) -> Filter
+pub fn FramePipelineRule::hits(Self) -> Int
+pub fn FramePipelineRule::matches(Self, Frame) -> Bool
+pub fn FramePipelineRule::max_payload(Self) -> Int
+pub fn FramePipelineRule::name(Self) -> String
+pub fn FramePipelineRule::set_enabled(Self, Bool) -> Unit
+
+pub struct FramePipelineWindow {
+  mut start_us : UInt64?
+  duration_us : UInt64
+  frames : Array[Frame]
+  mut closed : Bool
+}
+pub fn FramePipelineWindow::close(Self) -> Unit
+pub fn FramePipelineWindow::closed(Self) -> Bool
+pub fn FramePipelineWindow::duration_us(Self) -> UInt64
+pub fn FramePipelineWindow::frames(Self) -> Array[Frame]
+pub fn FramePipelineWindow::length(Self) -> Int
+pub fn FramePipelineWindow::metrics(Self) -> FrameMetrics
+pub fn FramePipelineWindow::push(Self, UInt64, Frame) -> Bool
+pub fn FramePipelineWindow::start_us(Self) -> UInt64?
+
 pub struct FrameQueue {
   capacity : Int
   mut next_sequence : UInt
@@ -1072,6 +2731,18 @@ pub fn FrameQueue::peek(Self) -> QueueItem?
 pub fn FrameQueue::remove(Self, UInt) -> QueueItem raise QueueError
 pub fn FrameQueue::snapshot(Self) -> Array[QueueItem]
 pub fn FrameQueue::take_channel(Self, Byte, Int) -> Array[QueueItem] raise QueueError
+
+pub struct FrameRateLimiter {
+  intervals : Array[(UInt, UInt64)]
+  last_sent : Array[(UInt, UInt64)]
+  mut allowed : Int
+  mut limited : Int
+}
+pub fn FrameRateLimiter::allow(Self, UInt, UInt64) -> Bool
+pub fn FrameRateLimiter::allowed(Self) -> Int
+pub fn FrameRateLimiter::limited(Self) -> Int
+pub fn FrameRateLimiter::reset(Self) -> Unit
+pub fn FrameRateLimiter::set_interval(Self, UInt, UInt64) -> Unit
 
 pub struct FrameReport {
   valid : Bool
@@ -1101,6 +2772,109 @@ pub struct GatewayPair {
 pub fn GatewayPair::left(Self) -> CanGateway
 pub fn GatewayPair::right(Self) -> CanGateway
 
+pub struct GatewayPolicyAudit {
+  timestamp_us : UInt64
+  rule_name : String
+  source_channel : String
+  destination_channel : String
+  decision : GatewayPolicyDecision
+  input_id : UInt
+  output_id : UInt?
+}
+pub fn GatewayPolicyAudit::decision(Self) -> GatewayPolicyDecision
+pub fn GatewayPolicyAudit::destination_channel(Self) -> String
+pub fn GatewayPolicyAudit::input_id(Self) -> UInt
+pub fn GatewayPolicyAudit::output_id(Self) -> UInt?
+pub fn GatewayPolicyAudit::rule_name(Self) -> String
+pub fn GatewayPolicyAudit::source_channel(Self) -> String
+pub fn GatewayPolicyAudit::timestamp_us(Self) -> UInt64
+
+pub struct GatewayPolicyContext {
+  timestamp_us : UInt64
+  source_channel : String
+  destination_channel : String
+  frame : Frame
+}
+pub fn GatewayPolicyContext::destination_channel(Self) -> String
+pub fn GatewayPolicyContext::frame(Self) -> Frame
+pub fn GatewayPolicyContext::source_channel(Self) -> String
+pub fn GatewayPolicyContext::timestamp_us(Self) -> UInt64
+
+pub enum GatewayPolicyDecision {
+  GatewayPolicyAllow
+  GatewayPolicyDeny(String)
+  GatewayPolicyRewrite(Frame)
+  GatewayPolicyRateLimited
+}
+
+pub struct GatewayPolicyEngine {
+  rules : Array[GatewayPolicyRule]
+  audits : Array[GatewayPolicyAudit]
+  capacity : Int
+  mut evaluated : Int
+  mut allowed : Int
+  mut denied : Int
+  mut rewritten : Int
+  mut rate_limited : Int
+}
+pub fn GatewayPolicyEngine::add_rule(Self, GatewayPolicyRule) -> Bool
+pub fn GatewayPolicyEngine::allowed(Self) -> Int
+pub fn GatewayPolicyEngine::audit_count(Self) -> Int
+pub fn GatewayPolicyEngine::audits(Self) -> Array[GatewayPolicyAudit]
+pub fn GatewayPolicyEngine::denied(Self) -> Int
+pub fn GatewayPolicyEngine::evaluate(Self, GatewayPolicyContext) -> GatewayPolicyDecision
+pub fn GatewayPolicyEngine::evaluated(Self) -> Int
+pub fn GatewayPolicyEngine::find(Self, String) -> GatewayPolicyRule?
+pub fn GatewayPolicyEngine::forward(Self, GatewayPolicyContext) -> Frame?
+pub fn GatewayPolicyEngine::rate_limited(Self) -> Int
+pub fn GatewayPolicyEngine::remove_rule(Self, String) -> Bool
+pub fn GatewayPolicyEngine::reset(Self) -> Unit
+pub fn GatewayPolicyEngine::rewritten(Self) -> Int
+pub fn GatewayPolicyEngine::rules(Self) -> Array[GatewayPolicyRule]
+pub fn GatewayPolicyEngine::to_text(Self) -> String
+
+pub struct GatewayPolicyRule {
+  name : String
+  filter : Filter
+  output_id : UInt?
+  prefix : Array[Byte]
+  max_payload : Int
+  min_interval_us : UInt64
+  allow_remote : Bool
+  mut enabled : Bool
+  mut hits : Int
+  mut denied : Int
+  mut last_timestamp_us : UInt64?
+}
+pub fn GatewayPolicyRule::allow_remote(Self) -> Bool
+pub fn GatewayPolicyRule::denied(Self) -> Int
+pub fn GatewayPolicyRule::enabled(Self) -> Bool
+pub fn GatewayPolicyRule::filter(Self) -> Filter
+pub fn GatewayPolicyRule::hits(Self) -> Int
+pub fn GatewayPolicyRule::matches(Self, Frame) -> Bool
+pub fn GatewayPolicyRule::max_payload(Self) -> Int
+pub fn GatewayPolicyRule::min_interval_us(Self) -> UInt64
+pub fn GatewayPolicyRule::name(Self) -> String
+pub fn GatewayPolicyRule::output_id(Self) -> UInt?
+pub fn GatewayPolicyRule::prefix(Self) -> Array[Byte]
+pub fn GatewayPolicyRule::rewrite(Self, Frame) -> Frame raise FrameError
+pub fn GatewayPolicyRule::set_enabled(Self, Bool) -> Unit
+
+pub struct IsoTpChannel {
+  source_id : UInt
+  target_id : UInt
+  extended : Bool
+  addressing : IsoTpSessionAddressing
+  flow_control : IsoTpFlowControlConfig
+}
+pub fn IsoTpChannel::accepts(Self, Frame) -> Bool
+pub fn IsoTpChannel::addressing(Self) -> IsoTpSessionAddressing
+pub fn IsoTpChannel::extended(Self) -> Bool
+pub fn IsoTpChannel::flow_control(Self) -> IsoTpFlowControlConfig
+pub fn IsoTpChannel::frame(Self, Array[Byte], Bool) -> Frame raise FrameError
+pub fn IsoTpChannel::source_id(Self) -> UInt
+pub fn IsoTpChannel::target_id(Self) -> UInt
+
 pub struct IsoTpConfig {
   frame_bytes : Int
   block_size : Byte
@@ -1109,6 +2883,18 @@ pub struct IsoTpConfig {
 pub fn IsoTpConfig::block_size(Self) -> Byte
 pub fn IsoTpConfig::frame_bytes(Self) -> Int
 pub fn IsoTpConfig::separation_time(Self) -> Byte
+
+pub struct IsoTpFlowControlConfig {
+  block_size : Int
+  separation_time_us : UInt64
+  wait_frame_limit : Int
+  max_payload : Int
+}
+pub fn IsoTpFlowControlConfig::block_size(Self) -> Int
+pub fn IsoTpFlowControlConfig::max_payload(Self) -> Int
+pub fn IsoTpFlowControlConfig::separation_time_us(Self) -> UInt64
+pub fn IsoTpFlowControlConfig::to_payload(Self) -> Array[Byte]
+pub fn IsoTpFlowControlConfig::wait_frame_limit(Self) -> Int
 
 pub enum IsoTpPacket {
   Single(payload~ : Array[Byte])
@@ -1128,10 +2914,146 @@ pub fn IsoTpReceiver::flow_control(Self) -> Array[Byte]
 pub fn IsoTpReceiver::push(Self, IsoTpPacket) -> IsoTpStatus raise IsoTpError
 pub fn IsoTpReceiver::reset(Self) -> Unit
 
+pub enum IsoTpReceiverResult {
+  IsoTpRxIgnored
+  IsoTpRxFlowControl(Array[Byte])
+  IsoTpRxProgress(Int)
+  IsoTpRxComplete(Array[Byte])
+  IsoTpRxError(String)
+}
+
+pub struct IsoTpRouter {
+  channels : Array[IsoTpChannel]
+  mut accepted : Int
+  mut rejected : Int
+}
+pub fn IsoTpRouter::accepted(Self) -> Int
+pub fn IsoTpRouter::add_channel(Self, IsoTpChannel) -> Bool
+pub fn IsoTpRouter::channels(Self) -> Array[IsoTpChannel]
+pub fn IsoTpRouter::find_channel(Self, UInt, UInt) -> IsoTpChannel?
+pub fn IsoTpRouter::rejected(Self) -> Int
+pub fn IsoTpRouter::remove_channel(Self, UInt, UInt) -> Bool
+pub fn IsoTpRouter::route(Self, Frame) -> IsoTpChannel?
+
+pub struct IsoTpSession {
+  mut transmitter : IsoTpTransmitter?
+  receiver : IsoTpStreamReceiver
+  mut sent_frames : Int
+  mut received_frames : Int
+  mut dropped_frames : Int
+}
+pub fn IsoTpSession::accept_flow_control(Self, Array[Byte], UInt64) -> Bool
+pub fn IsoTpSession::dropped_frames(Self) -> Int
+pub fn IsoTpSession::next_transmit(Self, UInt64) -> Array[Byte]?
+pub fn IsoTpSession::receive(Self, Array[Byte], UInt64) -> IsoTpReceiverResult
+pub fn IsoTpSession::received_frames(Self) -> Int
+pub fn IsoTpSession::receiver(Self) -> IsoTpStreamReceiver
+pub fn IsoTpSession::sent_frames(Self) -> Int
+pub fn IsoTpSession::start_transmit(Self, Array[Byte], UInt64) -> Unit
+pub fn IsoTpSession::transmitter(Self) -> IsoTpTransmitter?
+
+pub enum IsoTpSessionAddressing {
+  IsoTpNormalAddressing
+  IsoTpExtendedAddressing(Byte)
+  IsoTpMixedAddressing(Byte)
+}
+
 pub enum IsoTpStatus {
   Waiting(received~ : Int, total~ : Int)
   Complete(payload~ : Array[Byte])
 }
+
+pub struct IsoTpStreamReceiver {
+  mut expected_length : Int
+  mut received : Array[Byte]
+  mut next_sequence : Byte
+  mut block_received : Int
+  mut wait_frames : Int
+  mut last_timestamp_us : UInt64
+  mut active : Bool
+  mut complete : Bool
+  flow_control : IsoTpFlowControlConfig
+  timeout_us : UInt64
+}
+pub fn IsoTpStreamReceiver::active(Self) -> Bool
+pub fn IsoTpStreamReceiver::complete(Self) -> Bool
+pub fn IsoTpStreamReceiver::expected_length(Self) -> Int
+pub fn IsoTpStreamReceiver::feed(Self, Array[Byte], UInt64) -> IsoTpReceiverResult
+pub fn IsoTpStreamReceiver::last_timestamp_us(Self) -> UInt64
+pub fn IsoTpStreamReceiver::next_sequence(Self) -> Byte
+pub fn IsoTpStreamReceiver::payload(Self) -> Array[Byte]
+pub fn IsoTpStreamReceiver::received_length(Self) -> Int
+pub fn IsoTpStreamReceiver::remaining(Self) -> Int
+pub fn IsoTpStreamReceiver::reset(Self) -> Unit
+pub fn IsoTpStreamReceiver::take_payload(Self) -> Array[Byte]?
+pub fn IsoTpStreamReceiver::timed_out(Self, UInt64) -> Bool
+
+pub struct IsoTpTransmitter {
+  payload : Array[Byte]
+  mut offset : Int
+  mut sequence : Byte
+  mut block_sent : Int
+  mut wait_frames : Int
+  mut state : IsoTpTransmitterState
+  flow_control : IsoTpFlowControlConfig
+  mut next_due_us : UInt64
+  started_us : UInt64
+}
+pub fn IsoTpTransmitter::abort(Self, String) -> Unit
+pub fn IsoTpTransmitter::accept_flow_control(Self, Array[Byte], UInt64) -> Bool
+pub fn IsoTpTransmitter::estimated_finish_us(Self) -> UInt64
+pub fn IsoTpTransmitter::is_aborted(Self) -> Bool
+pub fn IsoTpTransmitter::is_complete(Self) -> Bool
+pub fn IsoTpTransmitter::next_due_us(Self) -> UInt64
+pub fn IsoTpTransmitter::next_payload(Self, UInt64) -> Array[Byte]?
+pub fn IsoTpTransmitter::offset(Self) -> Int
+pub fn IsoTpTransmitter::payload(Self) -> Array[Byte]
+pub fn IsoTpTransmitter::remaining(Self) -> Int
+pub fn IsoTpTransmitter::sequence(Self) -> Byte
+pub fn IsoTpTransmitter::started_us(Self) -> UInt64
+pub fn IsoTpTransmitter::state(Self) -> IsoTpTransmitterState
+
+pub enum IsoTpTransmitterState {
+  IsoTpTxIdle
+  IsoTpTxWaitingFlowControl
+  IsoTpTxSending
+  IsoTpTxComplete
+  IsoTpTxAborted(String)
+}
+
+pub struct J1939AddressClaim {
+  source_address : Byte
+  name : UInt64
+  manufacturer : UInt
+  function : Byte
+  instance : Byte
+  mut last_seen_us : UInt64
+  mut preferred : Bool
+}
+pub fn J1939AddressClaim::function(Self) -> Byte
+pub fn J1939AddressClaim::instance(Self) -> Byte
+pub fn J1939AddressClaim::last_seen_us(Self) -> UInt64
+pub fn J1939AddressClaim::manufacturer(Self) -> UInt
+pub fn J1939AddressClaim::name(Self) -> UInt64
+pub fn J1939AddressClaim::preferred(Self) -> Bool
+pub fn J1939AddressClaim::refresh(Self, UInt64) -> Unit
+pub fn J1939AddressClaim::set_preferred(Self, Bool) -> Unit
+pub fn J1939AddressClaim::source_address(Self) -> Byte
+pub fn J1939AddressClaim::wire_name(Self) -> Array[Byte]
+
+pub struct J1939AddressManager {
+  claims : Array[J1939AddressClaim]
+  mut conflicts : Int
+  mut changes : Int
+  timeout_us : UInt64
+}
+pub fn J1939AddressManager::changes(Self) -> Int
+pub fn J1939AddressManager::claim(Self, J1939AddressClaim) -> Bool
+pub fn J1939AddressManager::claims(Self) -> Array[J1939AddressClaim]
+pub fn J1939AddressManager::conflicts(Self) -> Int
+pub fn J1939AddressManager::expire(Self, UInt64) -> Int
+pub fn J1939AddressManager::find(Self, Byte) -> J1939AddressClaim?
+pub fn J1939AddressManager::refresh(Self, Byte, UInt64) -> Bool
 
 pub struct J1939Id {
   priority : Byte
@@ -1155,6 +3077,70 @@ pub struct J1939Message {
 pub fn J1939Message::identifier(Self) -> J1939Id
 pub fn J1939Message::payload(Self) -> Array[Byte]
 pub fn J1939Message::to_frame(Self) -> Frame raise FrameError
+
+pub struct J1939SpnDefinition {
+  spn : UInt
+  name : String
+  start_bit : Int
+  length : Int
+  factor : Double
+  offset : Double
+  minimum : Double
+  maximum : Double
+  unit : String
+}
+pub fn J1939SpnDefinition::decode(Self, Array[Byte]) -> Double
+pub fn J1939SpnDefinition::encode(Self, Array[Byte], Double) -> Array[Byte]
+pub fn J1939SpnDefinition::factor(Self) -> Double
+pub fn J1939SpnDefinition::length(Self) -> Int
+pub fn J1939SpnDefinition::name(Self) -> String
+pub fn J1939SpnDefinition::offset(Self) -> Double
+pub fn J1939SpnDefinition::spn(Self) -> UInt
+pub fn J1939SpnDefinition::start_bit(Self) -> Int
+pub fn J1939SpnDefinition::unit(Self) -> String
+
+pub enum J1939TransportDirection {
+  J1939TransportTransmit
+  J1939TransportReceive
+}
+
+pub struct J1939TransportSession {
+  pgn : UInt
+  direction : J1939TransportDirection
+  mut total_length : Int
+  mut packet_count : Int
+  mut payload : Array[Byte]
+  mut next_sequence : Int
+  mut state : J1939TransportState
+  mut last_timestamp_us : UInt64
+  timeout_us : UInt64
+  mut retries : Int
+}
+pub fn J1939TransportSession::accept_announcement(Self, Array[Byte], UInt64) -> Bool
+pub fn J1939TransportSession::accept_packet(Self, Array[Byte], UInt64) -> Bool
+pub fn J1939TransportSession::complete(Self) -> Bool
+pub fn J1939TransportSession::direction(Self) -> J1939TransportDirection
+pub fn J1939TransportSession::last_timestamp_us(Self) -> UInt64
+pub fn J1939TransportSession::next_sequence(Self) -> Int
+pub fn J1939TransportSession::packet_count(Self) -> Int
+pub fn J1939TransportSession::payload(Self) -> Array[Byte]
+pub fn J1939TransportSession::pgn(Self) -> UInt
+pub fn J1939TransportSession::received_length(Self) -> Int
+pub fn J1939TransportSession::retries(Self) -> Int
+pub fn J1939TransportSession::start_transmit(Self, Array[Byte], UInt64) -> Array[Array[Byte]] raise J1939Error
+pub fn J1939TransportSession::state(Self) -> J1939TransportState
+pub fn J1939TransportSession::take_payload(Self) -> Array[Byte]?
+pub fn J1939TransportSession::timed_out(Self, UInt64) -> Bool
+pub fn J1939TransportSession::total_length(Self) -> Int
+
+pub enum J1939TransportState {
+  J1939TransportIdle
+  J1939TransportAnnounced
+  J1939TransportTransferring
+  J1939TransportComplete
+  J1939TransportTimedOut
+  J1939TransportAborted
+}
 
 pub struct LatencySample {
   sequence : UInt
@@ -1236,6 +3222,63 @@ pub fn NetworkDelivery::recipients(Self) -> Array[String]
 pub fn NetworkDelivery::sender(Self) -> Byte
 pub fn NetworkDelivery::timestamp(Self) -> UInt64
 
+pub struct NetworkErrorBudget {
+  max_error_rate : Double
+  max_drop_rate : Double
+  max_offline_nodes : Int
+  mut total_frames : Int
+  mut error_frames : Int
+  mut dropped_frames : Int
+  mut offline_nodes : Int
+}
+pub fn NetworkErrorBudget::drop_rate(Self) -> Double
+pub fn NetworkErrorBudget::dropped_frames(Self) -> Int
+pub fn NetworkErrorBudget::error_frames(Self) -> Int
+pub fn NetworkErrorBudget::error_rate(Self) -> Double
+pub fn NetworkErrorBudget::max_drop_rate(Self) -> Double
+pub fn NetworkErrorBudget::max_error_rate(Self) -> Double
+pub fn NetworkErrorBudget::offline_nodes(Self) -> Int
+pub fn NetworkErrorBudget::record_frame(Self, Bool, Bool) -> Unit
+pub fn NetworkErrorBudget::set_offline_nodes(Self, Int) -> Unit
+pub fn NetworkErrorBudget::total_frames(Self) -> Int
+pub fn NetworkErrorBudget::within_budget(Self) -> Bool
+
+pub struct NetworkHealthReport {
+  timestamp_us : UInt64
+  nodes : Array[NetworkNodeHealth]
+  online : Int
+  degraded : Int
+  offline : Int
+  budget : NetworkErrorBudget
+}
+pub fn NetworkHealthReport::budget(Self) -> NetworkErrorBudget
+pub fn NetworkHealthReport::degraded(Self) -> Int
+pub fn NetworkHealthReport::healthy(Self) -> Bool
+pub fn NetworkHealthReport::nodes(Self) -> Array[NetworkNodeHealth]
+pub fn NetworkHealthReport::offline(Self) -> Int
+pub fn NetworkHealthReport::online(Self) -> Int
+pub fn NetworkHealthReport::timestamp_us(Self) -> UInt64
+pub fn NetworkHealthReport::to_text(Self) -> String
+
+pub struct NetworkHealthTracker {
+  nodes : Array[NetworkNodeHealth]
+  budget : NetworkErrorBudget
+  mut samples : Int
+  mut last_timestamp_us : UInt64
+}
+pub fn NetworkHealthTracker::add_node(Self, NetworkNodeHealth) -> Bool
+pub fn NetworkHealthTracker::budget(Self) -> NetworkErrorBudget
+pub fn NetworkHealthTracker::find(Self, Byte) -> NetworkNodeHealth?
+pub fn NetworkHealthTracker::last_timestamp_us(Self) -> UInt64
+pub fn NetworkHealthTracker::nodes(Self) -> Array[NetworkNodeHealth]
+pub fn NetworkHealthTracker::observe_drop(Self) -> Unit
+pub fn NetworkHealthTracker::observe_error(Self, Byte) -> Bool
+pub fn NetworkHealthTracker::observe_frame(Self, Byte, UInt64, Frame, Bool) -> Bool
+pub fn NetworkHealthTracker::observe_heartbeat(Self, Byte, UInt64, latency_us? : UInt64) -> Bool
+pub fn NetworkHealthTracker::poll(Self, UInt64) -> NetworkHealthReport
+pub fn NetworkHealthTracker::reset(Self) -> Unit
+pub fn NetworkHealthTracker::samples(Self) -> Int
+
 pub struct NetworkNode {
   node_id : Byte
   name : String
@@ -1251,6 +3294,45 @@ pub fn NetworkNode::online(Self) -> Bool
 pub fn NetworkNode::received(Self) -> Int
 pub fn NetworkNode::transmitted(Self) -> Int
 
+pub struct NetworkNodeHealth {
+  node_id : Byte
+  name : String
+  mut state : NetworkNodeHealthState
+  mut last_seen_us : UInt64
+  timeout_us : UInt64
+  mut received : Int
+  mut transmitted : Int
+  mut errors : Int
+  mut missed_heartbeats : Int
+  latency_samples : Array[UInt64]
+}
+pub fn NetworkNodeHealth::average_latency_us(Self) -> UInt64
+pub fn NetworkNodeHealth::errors(Self) -> Int
+pub fn NetworkNodeHealth::last_seen_us(Self) -> UInt64
+pub fn NetworkNodeHealth::latency_samples(Self) -> Array[UInt64]
+pub fn NetworkNodeHealth::missed_heartbeats(Self) -> Int
+pub fn NetworkNodeHealth::name(Self) -> String
+pub fn NetworkNodeHealth::node_id(Self) -> Byte
+pub fn NetworkNodeHealth::observe_error(Self) -> Unit
+pub fn NetworkNodeHealth::observe_frame(Self, UInt64, Bool) -> Unit
+pub fn NetworkNodeHealth::observe_heartbeat(Self, UInt64, latency_us? : UInt64) -> Unit
+pub fn NetworkNodeHealth::online(Self) -> Bool
+pub fn NetworkNodeHealth::p95_latency_us(Self) -> UInt64
+pub fn NetworkNodeHealth::poll(Self, UInt64) -> NetworkNodeHealthState
+pub fn NetworkNodeHealth::received(Self) -> Int
+pub fn NetworkNodeHealth::state(Self) -> NetworkNodeHealthState
+pub fn NetworkNodeHealth::timeout_us(Self) -> UInt64
+pub fn NetworkNodeHealth::to_text(Self) -> String
+pub fn NetworkNodeHealth::transmitted(Self) -> Int
+
+pub enum NetworkNodeHealthState {
+  NetworkNodeUnknown
+  NetworkNodeHealthy
+  NetworkNodeDegraded
+  NetworkNodeOffline
+  NetworkNodeMaintenance
+}
+
 pub struct NodeRegistry {
   nodes : Array[CanNode]
 }
@@ -1260,6 +3342,69 @@ pub fn NodeRegistry::length(Self) -> Int
 pub fn NodeRegistry::record_transmission(Self, Byte) -> Unit raise NodeRegistryError
 pub fn NodeRegistry::register(Self, Byte, String, Filter) -> Unit raise NodeRegistryError
 pub fn NodeRegistry::unregister(Self, Byte) -> Unit raise NodeRegistryError
+
+pub struct PayloadCodec {
+  options : PayloadCodecOptions
+  mut encoded : Int
+  mut decoded : Int
+  mut failures : Int
+  mut next_counter : Byte
+}
+pub fn PayloadCodec::decode(Self, Array[Byte], Byte?) -> PayloadCodecResult
+pub fn PayloadCodec::decoded(Self) -> Int
+pub fn PayloadCodec::encode(Self, Array[Byte]) -> PayloadCodecResult
+pub fn PayloadCodec::encoded(Self) -> Int
+pub fn PayloadCodec::failures(Self) -> Int
+pub fn PayloadCodec::next_counter(Self) -> Byte
+pub fn PayloadCodec::options(Self) -> PayloadCodecOptions
+pub fn PayloadCodec::reset(Self) -> Unit
+
+pub struct PayloadCodecOptions {
+  profile : PayloadCodecProfile
+  counter_offset : Int
+  counter_high_nibble : Bool
+  crc_offset : Int
+  checksum_offset : Int
+  expected_length : Int
+  counter_modulus : Int
+}
+pub fn PayloadCodecOptions::checksum_offset(Self) -> Int
+pub fn PayloadCodecOptions::counter_high_nibble(Self) -> Bool
+pub fn PayloadCodecOptions::counter_modulus(Self) -> Int
+pub fn PayloadCodecOptions::counter_offset(Self) -> Int
+pub fn PayloadCodecOptions::crc_offset(Self) -> Int
+pub fn PayloadCodecOptions::expected_length(Self) -> Int
+pub fn PayloadCodecOptions::profile(Self) -> PayloadCodecProfile
+
+pub(all) enum PayloadCodecProfile {
+  PayloadCodecPlain
+  PayloadCodecCounterCrc
+  PayloadCodecCounterChecksum
+  PayloadCodecAliveAndCrc
+}
+
+pub struct PayloadCodecResult {
+  status : PayloadCodecStatus
+  data : Array[Byte]
+  counter : Byte?
+  expected_counter : Byte?
+  checksum : Byte?
+}
+pub fn PayloadCodecResult::accepted(Self) -> Bool
+pub fn PayloadCodecResult::checksum(Self) -> Byte?
+pub fn PayloadCodecResult::counter(Self) -> Byte?
+pub fn PayloadCodecResult::data(Self) -> Array[Byte]
+pub fn PayloadCodecResult::expected_counter(Self) -> Byte?
+pub fn PayloadCodecResult::status(Self) -> PayloadCodecStatus
+pub fn PayloadCodecResult::to_text(Self) -> String
+
+pub(all) enum PayloadCodecStatus {
+  PayloadCodecAccepted
+  PayloadCodecBadLength
+  PayloadCodecBadCounter
+  PayloadCodecBadCrc
+  PayloadCodecBadChecksum
+}
 
 pub struct PdoMapEntry {
   index : UInt
@@ -1436,6 +3581,68 @@ pub fn SimulationReport::dropped(Self) -> Int
 pub fn SimulationReport::duration_us(Self) -> UInt64
 pub fn SimulationReport::scheduled(Self) -> Int
 
+pub struct SimulationScenario {
+  name : String
+  capacity : Int
+  bitrate_kbps : UInt
+  events : Array[SimulationScenarioEvent]
+  assertions : Array[SimulationScenarioAssertion]
+  mut state : SimulationScenarioState
+}
+pub fn SimulationScenario::add_assertion(Self, SimulationScenarioAssertion) -> Unit
+pub fn SimulationScenario::assertions(Self) -> Array[SimulationScenarioAssertion]
+pub fn SimulationScenario::bitrate_kbps(Self) -> UInt
+pub fn SimulationScenario::capacity(Self) -> Int
+pub fn SimulationScenario::clear(Self) -> Unit
+pub fn SimulationScenario::events(Self) -> Array[SimulationScenarioEvent]
+pub fn SimulationScenario::name(Self) -> String
+pub fn SimulationScenario::ready(Self) -> Bool
+pub fn SimulationScenario::run(Self) -> SimulationScenarioResult raise SimulationError
+pub fn SimulationScenario::schedule(Self, UInt64, Frame, source? : String) -> Bool
+pub fn SimulationScenario::schedule_periodic(Self, UInt64, UInt64, Int, Frame, source? : String) -> Bool
+pub fn SimulationScenario::state(Self) -> SimulationScenarioState
+pub fn SimulationScenario::to_text(Self) -> String
+
+pub enum SimulationScenarioAssertion {
+  SimulationAssertDeliveredAtLeast(Int)
+  SimulationAssertDroppedAtMost(Int)
+  SimulationAssertDurationAtMost(UInt64)
+  SimulationAssertIdentifierSeen(UInt)
+  SimulationAssertHealth(BusHealthState)
+}
+
+pub struct SimulationScenarioEvent {
+  timestamp_us : UInt64
+  frame : Frame
+  source : String
+}
+pub fn SimulationScenarioEvent::frame(Self) -> Frame
+pub fn SimulationScenarioEvent::source(Self) -> String
+pub fn SimulationScenarioEvent::timestamp_us(Self) -> UInt64
+
+pub struct SimulationScenarioResult {
+  name : String
+  state : SimulationScenarioState
+  report : SimulationReport
+  assertions : Array[SimulationScenarioAssertion]
+  failures : Array[String]
+}
+pub fn SimulationScenarioResult::assertions(Self) -> Array[SimulationScenarioAssertion]
+pub fn SimulationScenarioResult::failures(Self) -> Array[String]
+pub fn SimulationScenarioResult::name(Self) -> String
+pub fn SimulationScenarioResult::passed(Self) -> Bool
+pub fn SimulationScenarioResult::report(Self) -> SimulationReport
+pub fn SimulationScenarioResult::state(Self) -> SimulationScenarioState
+pub fn SimulationScenarioResult::to_text(Self) -> String
+
+pub enum SimulationScenarioState {
+  SimulationScenarioDraft
+  SimulationScenarioReady
+  SimulationScenarioRunning
+  SimulationScenarioPassed
+  SimulationScenarioFailed
+}
+
 pub struct Trace {
   entries : Array[TraceEntry]
 }
@@ -1451,12 +3658,156 @@ pub fn Trace::time_range(Self) -> (UInt64, UInt64)?
 pub fn Trace::to_text(Self) -> String
 pub fn Trace::validate(Self) -> Unit raise TraceError
 
+pub struct TraceDiff {
+  ordinal : Int
+  kind : TraceDiffKind
+  left : TraceQueryMatch?
+  right : TraceQueryMatch?
+}
+pub fn TraceDiff::kind(Self) -> TraceDiffKind
+pub fn TraceDiff::left(Self) -> TraceQueryMatch?
+pub fn TraceDiff::ordinal(Self) -> Int
+pub fn TraceDiff::right(Self) -> TraceQueryMatch?
+
+pub enum TraceDiffKind {
+  TraceDiffMissingLeft
+  TraceDiffMissingRight
+  TraceDiffIdentifier
+  TraceDiffPayload
+  TraceDiffTimestamp
+}
+
 pub struct TraceEntry {
   timestamp_us : UInt64
   frame : Frame
 }
 pub fn TraceEntry::frame(Self) -> Frame
 pub fn TraceEntry::timestamp(Self) -> UInt64
+
+pub enum TraceExportFormat {
+  TraceExportCanText
+  TraceExportCsv
+  TraceExportSummary
+  TraceExportReplayScript
+}
+
+pub struct TraceExportOptions {
+  format : TraceExportFormat
+  include_channel : Bool
+  include_sequence : Bool
+  include_header : Bool
+  normalize_timestamps : Bool
+  max_rows : Int
+}
+pub fn TraceExportOptions::format(Self) -> TraceExportFormat
+pub fn TraceExportOptions::include_channel(Self) -> Bool
+pub fn TraceExportOptions::include_header(Self) -> Bool
+pub fn TraceExportOptions::include_sequence(Self) -> Bool
+pub fn TraceExportOptions::max_rows(Self) -> Int
+pub fn TraceExportOptions::normalize_timestamps(Self) -> Bool
+
+pub struct TraceExportRecord {
+  timestamp_us : UInt64
+  sequence : Int
+  channel : String
+  frame : Frame
+}
+pub fn TraceExportRecord::channel(Self) -> String
+pub fn TraceExportRecord::frame(Self) -> Frame
+pub fn TraceExportRecord::relative_to(Self, UInt64) -> UInt64
+pub fn TraceExportRecord::sequence(Self) -> Int
+pub fn TraceExportRecord::timestamp_us(Self) -> UInt64
+
+pub struct TraceExporter {
+  options : TraceExportOptions
+  records : Array[TraceExportRecord]
+  mut rows : Int
+  mut bytes : Int
+  mut errors : Int
+}
+pub fn TraceExporter::add(Self, TraceExportRecord) -> Bool
+pub fn TraceExporter::add_trace(Self, Trace, channel? : String) -> Int
+pub fn TraceExporter::bytes(Self) -> Int
+pub fn TraceExporter::errors(Self) -> Int
+pub fn TraceExporter::records(Self) -> Array[TraceExportRecord]
+pub fn TraceExporter::render(Self) -> String
+pub fn TraceExporter::rows(Self) -> Int
+
+pub struct TraceQueryBucket {
+  start_us : UInt64
+  end_us : UInt64
+  mut frames : Int
+  mut payload_bytes : Int
+  mut wire_bits : Int
+}
+pub fn TraceQueryBucket::end_us(Self) -> UInt64
+pub fn TraceQueryBucket::frames(Self) -> Int
+pub fn TraceQueryBucket::payload_bytes(Self) -> Int
+pub fn TraceQueryBucket::start_us(Self) -> UInt64
+pub fn TraceQueryBucket::utilization(Self, UInt) -> Double
+pub fn TraceQueryBucket::wire_bits(Self) -> Int
+
+pub struct TraceQueryMatch {
+  index : Int
+  timestamp_us : UInt64
+  frame : Frame
+}
+pub fn TraceQueryMatch::frame(Self) -> Frame
+pub fn TraceQueryMatch::index(Self) -> Int
+pub fn TraceQueryMatch::latency_from(Self, UInt64) -> UInt64
+pub fn TraceQueryMatch::timestamp_us(Self) -> UInt64
+
+pub enum TraceQueryPredicate {
+  TraceQueryAny
+  TraceQueryIdentifier(UInt)
+  TraceQueryExtended(Bool)
+  TraceQueryProtocol(Protocol)
+  TraceQueryFrameClass(FrameClass)
+  TraceQueryPayloadLength(Int)
+  TraceQueryPayloadAtLeast(Int)
+  TraceQueryPayloadByte(Int, Byte)
+  TraceQueryIdentifierRange(UInt, UInt)
+}
+
+pub struct TraceQuerySpec {
+  mut start_us : UInt64?
+  mut end_us : UInt64?
+  predicates : Array[TraceQueryPredicate]
+  mut inspected : Int
+  mut matched : Int
+}
+pub fn TraceQuerySpec::after(Self, UInt64) -> Unit
+pub fn TraceQuerySpec::before(Self, UInt64) -> Unit
+pub fn TraceQuerySpec::between(Self, UInt64, UInt64) -> Unit
+pub fn TraceQuerySpec::inspected(Self) -> Int
+pub fn TraceQuerySpec::matched(Self) -> Int
+pub fn TraceQuerySpec::predicates(Self) -> Array[TraceQueryPredicate]
+pub fn TraceQuerySpec::reset_counters(Self) -> Unit
+pub fn TraceQuerySpec::where_is(Self, TraceQueryPredicate) -> Unit
+
+pub struct TraceReplayEvent {
+  offset_us : UInt64
+  frame : Frame
+  original_index : Int
+}
+pub fn TraceReplayEvent::frame(Self) -> Frame
+pub fn TraceReplayEvent::offset_us(Self) -> UInt64
+pub fn TraceReplayEvent::original_index(Self) -> Int
+
+pub struct TraceReplayPlan {
+  events : Array[TraceReplayEvent]
+  scale_num : UInt64
+  scale_den : UInt64
+  mut cursor : Int
+}
+pub fn TraceReplayPlan::at(Self, UInt64) -> Array[TraceReplayEvent]
+pub fn TraceReplayPlan::cursor(Self) -> Int
+pub fn TraceReplayPlan::duration_us(Self) -> UInt64
+pub fn TraceReplayPlan::events(Self) -> Array[TraceReplayEvent]
+pub fn TraceReplayPlan::next(Self) -> TraceReplayEvent?
+pub fn TraceReplayPlan::reset(Self) -> Unit
+pub fn TraceReplayPlan::scale_den(Self) -> UInt64
+pub fn TraceReplayPlan::scale_num(Self) -> UInt64
 
 pub struct UdsResponseInfo {
   positive : Bool
